@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang=pt-pt> 
+<head>
+<title>Mancala</title>
+</head>
+<body>
+<!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
+
+<center><img src="logotipo.png" alt="Mancala"/></center>
+
+<form action=registar method=post>
+
+Number of hollows:
+<input type=text id="hollow_value" value="6"> (Recomendado: 6)<br>
+
+Number of seeds:
+<input type=text id="seed_value" value="4"> (Recomendado: 4)<br>
+
+Versus:
+<input type=radio name="versus" id="mode_pc" value="CPU">
+<label for="mode_pc">CPU</label>
+<input type=radio id="mode_player" name="versus" value="Player">
+<label for="mode_player">Player</label><br>
+
+Modo:
+<input type=radio id="mode_1p" name="game_mode" value="1P">
+<label for="mode_1p">1P</label>
+<input type=radio id="mode_2p" name="game_mode" value="2P">
+<label for="mode_2p">2P</label><br>
+
+CPU level:
+Modo:
+<input type=radio id="cpu_1" name="cpu_level" value="N1">
+<label for="mode_1p">1</label><br>
+
+<br>
+<input type=reset value="Reset">
+<input type=submit value="Begin Game">
+</form>
+
+<!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
+
+<div id="instructions">
+<p> O objetivo do jogo é conseguir mais pontos do que o adverśario, movendo peças para a área própria ou capturando as do adversário.</p>
+<p> Ao selecionar um buraco, todas as peças desse buraco serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio.</p>
+<p>Se a última peça (da jogada actual) for colocada num buraco vazio (no lado do jogador), todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
+</div>
+
+<div id="login">
+<form action=login method=post>
+Utilizador: <input type=text> <br>
+Password: <input type=password> <br>
+</form>
+</div>
+
+<div id="signup">
+<form action=signup method=post>
+Utilizador: <input type=text> <br>
+Password: <input type=password> <br>
+</form>
+</div>
+
+
+</body>
+
+</html>
