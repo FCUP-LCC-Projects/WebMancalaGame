@@ -2,43 +2,78 @@
 <html lang=pt-pt> 
 <head>
 <title>Mancala</title>
+
+<script src="board.js"></script>
 </head>
 <body>
 <!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
 
+<h1>Mancala</h1>
+
 <center><img src="logotipo.png" alt="Mancala"/></center>
 
-<form action=registar method=post>
+<form id="tableContent" >
 
 Number of hollows:
-<input type=text id="hollow_value" value="6"> (Recomendado: 6)<br>
+<input type=radio id="hollow_value_4" name="hollows" >
+<label for="hollow_value_4">4</label>
+<input type=radio id="hollow_value_6" name="hollows" >
+<label for="hollow_value_6">6</label>
+<input type=radio id="hollow_value_8" name="hollows" >
+<label for="hollow_value_8">8</label> (Recomendado: 6)<br>
 
 Number of seeds:
-<input type=text id="seed_value" value="4"> (Recomendado: 4)<br>
+<input type=radio id="seed_value_4" name="seeds" >
+<label for="seed_value_4">4</label>
+<input type=radio id="seed_value_8" name="seeds" >
+<label for="seed_value_8">8</label>
+<input type=radio id="seed_value_12" name="seeds" >
+<label for="seed_value_12">12</label> (Recomendado: 4)<br>
 
 Versus:
-<input type=radio name="versus" id="mode_pc" value="CPU">
+<input type=radio id="mode_pc" name="versus" >
 <label for="mode_pc">CPU</label>
-<input type=radio id="mode_player" name="versus" value="Player">
+<input type=radio id="mode_player" name="versus">
 <label for="mode_player">Player</label><br>
 
 Modo:
-<input type=radio id="mode_1p" name="game_mode" value="1P">
+<input type=radio id="mode_1p" name="game_mode">
 <label for="mode_1p">1P</label>
-<input type=radio id="mode_2p" name="game_mode" value="2P">
+<input type=radio id="mode_2p" name="game_mode">
 <label for="mode_2p">2P</label><br>
 
 CPU level:
 Modo:
-<input type=radio id="cpu_1" name="cpu_level" value="N1">
+<input type=radio id="cpu_1" name="cpu_level">
 <label for="mode_1p">1</label><br>
 
 <br>
 <input type=reset value="Reset">
-<input type=submit value="Begin Game">
+<input type=button id="submit" value="Begin Game">
 </form>
-
+<br>
 <!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
+
+
+<!-- PARA FAZER O TABULEIRO FAZER 3 DIVS, 2 PARA OS CONTAINERS E 1 PARA GERAR OS BURACOS. DEPENDENDO DE QUANTOS SÃO INSERIDOS ENTÃO INSERIR O CÓDIGO.
+	FAZER CADA DIV DE CONTAINER COMO UMA COLUNA COM DIVS DENTRO PARA SER CADA BURACO E FAZER LOOP PELO NUMER_CONTAINER. PARA OS BURACOS, DEFINI-LOS COMO CLASSES E METER OS LISTENER E CONTAINERS A PARTIR DAÍ. FAZER CADA PEÇA COMO UM DIV, FAZÊ-LOS CUBOS COM BORDER-RADIUS REDONDO (FICAM CIRCULOS) E GERÁ-LOS COM POSIÇÕES ABSOLUTAS DE MODO A NÃO SE SOBREPOREM-->
+
+<div id="board">
+
+<div class="pits">
+<div class="pit_hole"></div>
+</div>
+
+<div id="holes_space">
+
+</div>
+
+<div class="pits">
+<div class="pit_hole"></div>
+</div>
+
+</div>
+
 
 <div id="instructions">
 <p> O objetivo do jogo é conseguir mais pontos do que o adverśario, movendo peças para a área própria ou capturando as do adversário.</p>
@@ -46,20 +81,19 @@ Modo:
 <p>Se a última peça (da jogada actual) for colocada num buraco vazio (no lado do jogador), todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
 </div>
 
-<div id="login">
-<form action=login method=post>
+<form id="login">
 Utilizador: <input type=text> <br>
 Password: <input type=password> <br>
 </form>
-</div>
 
-<div id="signup">
-<form action=signup method=post>
+<form id="signup">
 Utilizador: <input type=text> <br>
 Password: <input type=password> <br>
 </form>
-</div>
 
+<script>
+initBoard();
+</script>
 
 </body>
 
