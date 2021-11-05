@@ -1,4 +1,4 @@
-let tabuleiro = {
+var tabuleiro = {
 	number_seeds: 4,
 	number_cavities: 6, //COLUMNS
 	total_cavities: 14,
@@ -6,8 +6,8 @@ let tabuleiro = {
 	//board [[(number_cavities p1)], P1 Buraco, [number_cavities p2], P2 Buraco]
 }
 
-let P1_index = tabuleiro.number_cavities;
-let P2_index = tabuleiro.total_cavities-1;
+var P1_index = tabuleiro.number_cavities;
+var P2_index = tabuleiro.total_cavities-1;
 
 function updateSeeds(state, seeds, mode, board){
 	board[state++]  = 0;

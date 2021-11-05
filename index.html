@@ -3,7 +3,10 @@
 <head>
 <title>Mancala</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="board.js"></script>
+<script src="scripts.js"></script>
+<style> #instructions{ display: block;  border: 5px solid red;}  #login{ display: block;  border: 5px solid black;} #signup{ display: none;  border: 5px solid red;}  </style>
 </head>
 <body>
 <!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
@@ -52,14 +55,24 @@ Modo:
 <input type=button id="submit" value="Begin Game">
 </form>
 <br>
-<!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
 
+<form id="login">
+<h2>LOGIN</h2>
+Utilizador: <input type=text> <br>
+Password: <input type=password> <br>
+<a onclick="loginSignToggle()"><h3>Don't have an account? Sign up!</h3></a>
+</form>
 
-<!-- PARA FAZER O TABULEIRO FAZER 3 DIVS, 2 PARA OS CONTAINERS E 1 PARA GERAR OS BURACOS. DEPENDENDO DE QUANTOS SÃO INSERIDOS ENTÃO INSERIR O CÓDIGO.
-	FAZER CADA DIV DE CONTAINER COMO UMA COLUNA COM DIVS DENTRO PARA SER CADA BURACO E FAZER LOOP PELO NUMER_CONTAINER. PARA OS BURACOS, DEFINI-LOS COMO CLASSES E METER OS LISTENER E CONTAINERS A PARTIR DAÍ. FAZER CADA PEÇA COMO UM DIV, FAZÊ-LOS CUBOS COM BORDER-RADIUS REDONDO (FICAM CIRCULOS) E GERÁ-LOS COM POSIÇÕES ABSOLUTAS DE MODO A NÃO SE SOBREPOREM-->
+<form id="signup">
+<h2>SIGNUP</h2>
+Utilizador: <input type=text> <br>
+Password: <input type=password> <br>
+<a onclick="loginSignToggle()"><h3 class="signin_text">Already signed in? Login!</h3></a>
+</form>
 
 <div id="board">
 
+<a onclick=""><h2>Begin Game</h2></a>
 <div class="pits">
 <div class="pit_hole"></div>
 </div>
@@ -75,21 +88,13 @@ Modo:
 </div>
 
 
-<div id="instructions">
+<div id="instructions" >
+<a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" style="font-size: 4vw;"></i></a>
 <p> O objetivo do jogo é conseguir mais pontos do que o adverśario, movendo peças para a área própria ou capturando as do adversário.</p>
 <p> Ao selecionar um buraco, todas as peças desse buraco serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio.</p>
 <p>Se a última peça (da jogada actual) for colocada num buraco vazio (no lado do jogador), todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
 </div>
 
-<form id="login">
-Utilizador: <input type=text> <br>
-Password: <input type=password> <br>
-</form>
-
-<form id="signup">
-Utilizador: <input type=text> <br>
-Password: <input type=password> <br>
-</form>
 
 <script>
 
