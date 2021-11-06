@@ -1,0 +1,27 @@
+CSS
+
+!important:
+
+#board - representa os contornos do tabuleiro
+.pits - representa os contornos de cada pit onde os jogadores metem as peças que contam pro score
+.pit_hole - representa a parte redonda onde vão estar mesmo as peças, o pits pode ser só o contorno quadrado
+#holes_space - representa o bordo do tabuleiro principal
+.holeColumn - uma columa que tem dois dos buracos do tabuleiro, o de cima do P2 e o de baixo do P1. não é preciso um contorno nas colunas mas 
+pode ser importante para o posicionamento. 
+.holeP1, holeP2 - buracos pro P1 e P2, devem ter o mesmo CSS
+.seed - cada peça do jogo
+
+
+
+resto da página:
+#instructions - popup com as instruções
+#login - parte pra fazer login
+#signup - parte pra fazer signup que é trocável com o login
+#tableContent - formulário pra mudar a informação do tabuleiro
+
+HTML:
+corrigir/adicionar regras
+
+JavaScript:
+adicionar listeners pros buracos
+criar rotina do jogo/begin game
