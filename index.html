@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="board.js"></script>
 <script src="scripts.js"></script>
-<style> #instructions{ display: block;  border: 5px solid red;}  #login{ display: block;  border: 5px solid black;} #signup{ display: none;  border: 5px solid red;}  </style>
+<style> #board{ display: block;  border: 5px solid red; height: 100vh; width: 90%;}  #holes_space{ display: block;  border: 5px solid black;} #pits{ display: none;  border: 5px solid red;}  .seed{ border-radius: 50%; border: 1px solid black;}</style>
 </head>
 <body>
 <!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
@@ -15,7 +15,7 @@
 
 <center><img src="logotipo.png" alt="Mancala"/></center>
 
-<form id="tableContent" >
+<form id="tableContent" style="display: block;">
 
 Number of hollows:
 <input type=radio id="hollow_value_4" name="hollows" >
@@ -37,7 +37,7 @@ Versus:
 <input type=radio id="mode_pc" name="versus" >
 <label for="mode_pc">CPU</label>
 <input type=radio id="mode_player" name="versus">
-<label for="mode_player">Player</label><br>
+<label for="mode_player">Player 2</label> (TBD - 2º entrega)<br>
 
 Modo:
 <input type=radio id="mode_1p" name="game_mode">
@@ -52,7 +52,7 @@ Modo:
 
 <br>
 <input type=reset value="Reset">
-<input type=button id="submit" value="Begin Game">
+<input type=button id="submit" value="Begin Game" onclick="beginGame()">
 </form>
 <br>
 
@@ -70,9 +70,21 @@ Password: <input type=password> <br>
 <a onclick="loginSignToggle()"><h3 class="signin_text">Already signed in? Login!</h3></a>
 </form>
 
+<table id="ranking">
+<tr>
+	<th colspan=3>Scores</th>
+</tr>
+<tr>
+	<th>Player 1</th>
+	<th>Player 2</th>
+	<th>Results</th>
+</tr>
+</table>
+
 <div id="board">
 
-<a onclick=""><h2>Begin Game</h2></a>
+<a onclick="beginGame()"><h2>Begin Game</h2></a>
+<p id="turn_info" style="visibility:hidden;">TURN INFO</p>
 <div class="pits">
 <div class="pit_hole"></div>
 </div>
@@ -84,21 +96,22 @@ Password: <input type=password> <br>
 <div class="pits">
 <div class="pit_hole"></div>
 </div>
-
+<button onclick="">Play again</button>
+<button onclick="">Show scores</button>
 </div>
 
 
-<div id="instructions" >
+<div id="instructions" style="display: block;">
 <a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" style="font-size: 4vw;"></i></a>
 <p> O objetivo do jogo é conseguir mais pontos do que o adverśario, movendo peças para a área própria ou capturando as do adversário.</p>
 <p> Ao selecionar um buraco, todas as peças desse buraco serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio.</p>
 <p>Se a última peça (da jogada actual) for colocada num buraco vazio (no lado do jogador), todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
 </div>
 
-
 <script>
-
-</script>
+initTabuleiro(tabuleiro); 
+initBoard();
+ </script>
 
 </body>
 

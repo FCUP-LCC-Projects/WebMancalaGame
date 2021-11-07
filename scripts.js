@@ -3,6 +3,7 @@ var tabuleiro = {
 	number_cavities: 6, //COLUMNS
 	total_cavities: 14,
 	difficulty: 1,
+	mode: "1P",
 }
 
 window.onload = function(){  //prevent script from loading before html page
@@ -25,25 +26,28 @@ function loginSignToggle(){
  
  function beginGame(){
 	 clearSpace();
-	 
-	 
+	 initTabuleiro(tabuleiro);
+	 initBoard();
+	 document.getElementById('turn_info').style.visibility= 'visible';
 	 
  }
  
  
  function clearSpace(){
-	 document.getElementById('login') = "none";
-	 document.getElementById('signup') = "none";
-	 document.getElementById('tableContents') = "none";
-	 document.getElementById('instructions') = "none";
+	 document.getElementById('login').style.display = "none";
+	 document.getElementById('signup').style.display  = "none";
+	 //document.getElementById('tableContents').style.display  = "none";
+	 //document.getElementById('instructions').style.display  = "none";
  }
  
  function formButtonHandler() {
 	const tableContents = document.getElementById("tableContent");
 	document.getElementById("submit").addEventListener("click", (event) => {
-    
-		console.log(tableContents.elements['hollow_value'].value);
-  
+		tabuleiro.number_cavities = document.querySelector('input[name="hollows"]:checked').value;
+		tabuleiro.number_seeds = document.querySelector('input[name="seeds"]:checked').value;
+		tabuleiro.difficulty = document.querySelector('input[name="cpu_level"]:checked').value;
+		tabuleiro.total_cavities = (tabuleiro.number_cavities*2 + 2);
+		tabuleiro.type = "CPU"; //alterar para o query na segunda entrega
 	});
  }
 
