@@ -23,5 +23,6 @@ HTML:
 corrigir/adicionar regras
 
 JavaScript:
-adicionar listeners pros buracos
-criar rotina do jogo/begin game
+adicionar regra de turno extra
+definir butões de replay, textos de score corrente, etc
+organisar código 
