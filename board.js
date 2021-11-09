@@ -3,16 +3,26 @@ var tabuleiro = {
 	number_cavities: 6, //COLUMNS
 	total_cavities: 14,
 	difficulty: 1,
-	type: "CPU"
+	type: "CPU",
 	//board [[(number_cavities p1)], P1 Buraco, [number_cavities p2], P2 Buraco]
 }
+
+
+
+/*
+A FAZER:
+METER BOARD NÃO GLOBAL
+CERTIFICAR QUE QUANDO ACABA AS SEMETES NO BOARD SÃO RECOLHIDAS ANTES DA CONTAGEM
+SHOW RANKING
+CONFIRMAR SE MINMAX TA BEM
+*/
+
 
 var mode = "P1";
 var choice, P1_index, P2_index, p1Wins = 0, p2Wins = 0;
 
 function newGame(){
-	var turnInfo = document.getElementById("turn_info");
-	initBoard();
+	let turnInfo = document.getElementById("turn_info");
 	if(mode==="P2"){
 		turnInfo.innerHTML = tabuleiro.type + " turn";
 		cpuMove();
@@ -47,106 +57,12 @@ function updateSeeds(state, seeds, mode, board){
 		board[state++]++; 
 		seeds--;
 	}
-}
-
-function updateBoard(){
-	const pits = document.getElementsByClassName("pit_hole"); //[0] - p1, [1] - 2
-	generateSeeds(pits[0] , tabuleiro.board[P1_index]); //update P1 pit
-	generateSeeds(pits[1], tabuleiro.board[tabuleiro.total_cavities-1]);
-
-	const spacesP1 = document.getElementsByClassName("holeP1");
-	const spacesP2 = document.getElementsByClassName("holeP2");
-	for(i=0, k=0; i<tabuleiro.total_cavities-1; i++){
-		if(i == P1_index) continue; //skip P1 pit
-		else if(i < P1_index)
-		generateSeeds(spacesP1[i], tabuleiro.board[i]);
-		else
-		generateSeeds(spacesP2[k++], tabuleiro.board[i]);
-	}
-}
-
-function generateSeeds(hole, number_seeds){
-	const seedList = hole.childNodes;
-
-	while(seedList.length != number_seeds){
-		if(seedList.length > number_seeds){ //remove
-			hole.removeChild(seedList.item(seedList.length-1));
-		}
-		if(seedList.length < number_seeds){ //append
-			const seed = document.createElement("div");
-			seed.className = "seed";
-		
-			hole.appendChild(seed);
-		}
-	}
-}
-
-function initTabuleiro(stats){
-
-	tabuleiro.number_seeds = stats.number_seeds;
-	tabuleiro.number_cavities = stats.number_cavities;
-	tabuleiro.total_cavities = stats.total_cavities;
-	mode = stats.mode;
-	tabuleiro.board = new Array(tabuleiro.total_cavities);
-	
-	for(let i=0; i<tabuleiro.total_cavities-1; i++){
-		tabuleiro.board[i] = tabuleiro.number_seeds;
-	}
-	
-	P1_index = tabuleiro.number_cavities;
-	P2_index = tabuleiro.total_cavities-1;
-	
-	tabuleiro.board[P1_index] = 0;
-	tabuleiro.board[tabuleiro.total_cavities-1] = 0;
-}
-
-function initBoard(){
-	holeSpace = document.getElementById("holes_space");
-	for(i=0;i<tabuleiro.number_cavities; i++){
-		initHoleColumns(holeSpace, i);
-	}
-}
-
-function initHoleColumns(holes_space, id){
-	const column =  document.createElement("div");
-	column.className = "holeColumn";
-	
-	holes_space.appendChild(column);
-	initHole(column, id);
-}
-
-function initHole(column, id){
-	const hole_p1 = document.createElement("div");
-	hole_p1.className = "holeP1";
-	hole_p1.id = id;
-	const hole_p2 = document.createElement("div");
-	hole_p2.className = "holeP2";
-	hole_p2.id = (P2_index-1-id);
-	
-	hole_p1.onClick = updateOnClick;
-	
-	column.appendChild(hole_p1);
-	column.appendChild(hole_p2);
-	initSeeds(hole_p1);
-	initSeeds(hole_p2);
-}
-
-function updateOnClick(id){
-		p1Move(id);
-}
-
-function initSeeds(hole){
-	for(let i=1; i<=tabuleiro.number_seeds; i++){
-		const seed = document.createElement("div");
-		seed.className = "seed";
-		
-		hole.appendChild(seed);
-	}
+	return board;
 }
 
 
 function p1Move(state){
-	if(!checkForOver(tabuleiro.board)){
+	if(tabuleiro.board[state]!=0 ){
 		updateSeeds(state, tabuleiro.board[state], "P1", tabuleiro.board);
 		updateBoard();
 		if(!checkForOver(tabuleiro.board)){
@@ -154,11 +70,19 @@ function p1Move(state){
 			mode = "P2";
 			cpuMove();
 		}
+		else{
+			tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
+			tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
+			showRecords();
+		}
 	}
 }
 
 function cpuMove(){
-	minimax(tabuleiro.board, 0);
+	let turnInfo = document.getElementById("turn_info");
+	turnInfo.innerHTML = "Player 2's turn";
+	tempBoard = [...tabuleiro.board];
+	minimax(tempBoard, 0);
 	var state = choice;
 	updateSeeds(state, tabuleiro.board[state], "P2", tabuleiro.board);
 	updateBoard();
@@ -167,19 +91,31 @@ function cpuMove(){
 	if(!checkForOver(tabuleiro.board)){
 		turnInfo.innerHTML = "Player 1's turn";
 	}
+	else{
+		tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
+		tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
+		showRecords();
+	}
+}
+
+function totalPoints(board, start, end){
+	let result=0;
+	for(i=start; i<end; i++)
+		result = result+1*board[i]; //1*board to force addition not concatenation
+	return result;
 }
 
 function checkForOver(board){
-	for(i=0; i<board.length - 1; i++){
-		if(i==tabuleiro.number_cavities) continue;
-		if(board[i]!=0) return false;
-	}
-	showRecords();
-	return true;
+	let resultP1=totalPoints(board,0,P1_index);
+	let resultP2=totalPoints(board,(+P1_index+1), P2_index);
+	
+	if(resultP1==0 || resultP2==0) return true;
+	return false;
 }
 
 function showRecords(){
-	var score = gameOver(board);
+	var score = gameOver(tabuleiro.board);
+	var turnInfo = document.getElementById('turn_info');
 	if(score==1){
 		turnInfo.innerHTML = tabuleiro.type + " wins. Better luck next time!";
 		p2Wins++;
@@ -192,14 +128,16 @@ function showRecords(){
 	
 	//add score to rankings which should be a pre-set table to which you only add a tr with createelement or whatever 
 	const rankings = document.getElementById('ranking');
+	rankings.style.display="block";
 	const row = rankings.insertRow(-1);
 	var p1Score = row.insertCell(0);
 	var p2Score = row.insertCell(1);
 	var wins = row.insertCell(2);
 	
-	p1.innerHTML(tabuleiro.board[P1_index]);
-	p2.innerHTML(tabuleiro.board[P2_index]);
-	wins.innerHTML(p1Wins + " - " + p2Wins);
+	p1Score.innerHTML = tabuleiro.board[P1_index];
+	p2Score.innerHTML = tabuleiro.board[P2_index];
+	wins.innerHTML = p1Wins + " - " + p2Wins;
+	clearTable();
 }
 
 function gameOver(board){
@@ -209,10 +147,19 @@ function gameOver(board){
 }
 
 function getNewState(move, tempBoard){
-	updateSeeds(move, tempBoard[move], mode, tempBoard);
-	mode = changeMode();
+	const board = updateSeeds(move, tempBoard[move], mode, tempBoard);
+	changeMode();
+	return board;
 }
 
+function legalMove(move, board){
+	if(mode=="P2") move = 1*i+1*P1_index+1;
+	else					move = i;
+	
+	if(board[move]==0 || move==P1_index || move==P2_index) return -1;
+	return move;
+	
+}
 
 function changeMode(){
 	if(mode==="P1") mode="P2";
@@ -231,24 +178,25 @@ function minimax(board, depth){
 	
 	var scores = new Array();
 	var moves = new Array();
-	var tempBoard;
+	var possible_board, move;
 	depth++;
-	for(i=1; i<=tabuleiro.number_cavities; i++){
-		tempBoard = [...board];
-		possible_board = getNewState(i+tabuleiro.number_cavities, tempBoard);
+	for(i=0; i<tabuleiro.number_cavities; i++){
+		move = legalMove(i, board);
+		if(move==-1) continue;
+		possible_board = getNewState(move, board);
 		scores.push(minimax(possible_board, depth));
-		moves.push(i+tabuleiro.number_cavities);	
+		moves.push(move);	
 	}
 	
 	var max_score, max_score_state, min_score, min_score_state;
-	if(mode=="P2"){
-		max_score = Math.apply.max(Math, scores);
+	if(mode==="P2"){
+		max_score = Math.max.apply(Math, scores);
 		max_score_state = scores.indexOf(max_score);
 		choice = moves[max_score_state];
 		return max_score;
 	}
 	else{
-		min_score = Math.apply.min(Math, scores);
+		min_score = Math.min.apply(Math, scores);
 		min_score_state = scores.indexOf(min_score);
 		choice = moves[min_score_state];
 		return min_score;

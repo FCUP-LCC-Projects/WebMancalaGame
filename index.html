@@ -4,73 +4,70 @@
 <title>Mancala</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css" type="text/css">
 <script src="board.js"></script>
 <script src="scripts.js"></script>
-<style> #board{ display: block;  border: 5px solid red; height: 100vh; width: 90%;}  #holes_space{ display: block;  border: 5px solid black;} #pits{ display: none;  border: 5px solid red;}  .seed{ border-radius: 50%; border: 1px solid black;}</style>
 </head>
 <body>
-<!--imagem não existe ainda, para desistir, só a meter o id pro JS-->
 
-<h1>Mancala</h1>
-
-<center><img src="logotipo.png" alt="Mancala"/></center>
+<center><img src="logotipo.png" alt="Mancala" style="height: 20%; width: 20%;"/></center>
 
 <form id="tableContent" style="display: block;">
 
 Number of hollows:
-<input type=radio id="hollow_value_4" name="hollows" >
+<input type=radio id="hollow_value_4" name="hollows" value=4>
 <label for="hollow_value_4">4</label>
-<input type=radio id="hollow_value_6" name="hollows" >
+<input type=radio id="hollow_value_6" name="hollows" value=6 required>
 <label for="hollow_value_6">6</label>
-<input type=radio id="hollow_value_8" name="hollows" >
+<input type=radio id="hollow_value_8" name="hollows" value=8>
 <label for="hollow_value_8">8</label> (Recomendado: 6)<br>
 
 Number of seeds:
-<input type=radio id="seed_value_4" name="seeds" >
+<input type=radio id="seed_value_4" name="seeds" value=4 required>
 <label for="seed_value_4">4</label>
-<input type=radio id="seed_value_8" name="seeds" >
+<input type=radio id="seed_value_8" name="seeds" value=8 >
 <label for="seed_value_8">8</label>
-<input type=radio id="seed_value_12" name="seeds" >
+<input type=radio id="seed_value_12" name="seeds" value=12>
 <label for="seed_value_12">12</label> (Recomendado: 4)<br>
 
 Versus:
-<input type=radio id="mode_pc" name="versus" >
+<input type=radio id="mode_pc" name="versus" value="CPU" required>
 <label for="mode_pc">CPU</label>
-<input type=radio id="mode_player" name="versus">
+<input type=radio id="mode_player" name="versus" value="P2" >
 <label for="mode_player">Player 2</label> (TBD - 2º entrega)<br>
 
 Modo:
-<input type=radio id="mode_1p" name="game_mode">
+<input type=radio id="mode_1p" name="game_mode" value="P1" required>
 <label for="mode_1p">1P</label>
-<input type=radio id="mode_2p" name="game_mode">
+<input type=radio id="mode_2p" name="game_mode" value="P2">
 <label for="mode_2p">2P</label><br>
 
 CPU level:
 Modo:
-<input type=radio id="cpu_1" name="cpu_level">
+<input type=radio id="cpu_1" name="cpu_level" value=1 required>
 <label for="mode_1p">1</label><br>
 
 <br>
 <input type=reset value="Reset">
-<input type=button id="submit" value="Begin Game" onclick="beginGame()">
+<input type=button id="submit" value="Begin Game" onclick="formButtonHandler()">
 </form>
 <br>
 
-<form id="login">
+<form id="login" style="display: block;">
 <h2>LOGIN</h2>
 Utilizador: <input type=text> <br>
 Password: <input type=password> <br>
 <a onclick="loginSignToggle()"><h3>Don't have an account? Sign up!</h3></a>
 </form>
 
-<form id="signup">
+<form id="signup" style="display: none;">
 <h2>SIGNUP</h2>
 Utilizador: <input type=text> <br>
 Password: <input type=password> <br>
 <a onclick="loginSignToggle()"><h3 class="signin_text">Already signed in? Login!</h3></a>
 </form>
 
-<table id="ranking">
+<table id="ranking" style="display: none;">
 <tr>
 	<th colspan=3>Scores</th>
 </tr>
@@ -81,10 +78,10 @@ Password: <input type=password> <br>
 </tr>
 </table>
 
+<a onclick="beginGame()" id="beginGameText"><h2>Begin Game</h2></a>
+<p id="turn_info" style="visibility:hidden;">TURN INFO</p>
 <div id="board">
 
-<a onclick="beginGame()"><h2>Begin Game</h2></a>
-<p id="turn_info" style="visibility:hidden;">TURN INFO</p>
 <div class="pits">
 <div class="pit_hole"></div>
 </div>
@@ -96,22 +93,17 @@ Password: <input type=password> <br>
 <div class="pits">
 <div class="pit_hole"></div>
 </div>
-<button onclick="">Play again</button>
-<button onclick="">Show scores</button>
+
 </div>
+<button onclick="" style="display: none;">Play again</button>
+<button onclick="" style="display: none;">Show scores</button>
 
-
-<div id="instructions" style="display: block;">
+<div id="instructions" style="display: none;">
 <a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" style="font-size: 4vw;"></i></a>
 <p> O objetivo do jogo é conseguir mais pontos do que o adverśario, movendo peças para a área própria ou capturando as do adversário.</p>
 <p> Ao selecionar um buraco, todas as peças desse buraco serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio.</p>
 <p>Se a última peça (da jogada actual) for colocada num buraco vazio (no lado do jogador), todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
 </div>
-
-<script>
-initTabuleiro(tabuleiro); 
-initBoard();
- </script>
 
 </body>
 
