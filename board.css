@@ -1,0 +1,63 @@
+
+#board{ 
+	display: flex;
+	justify-content: center;
+	padding: 2%;
+	border: 5px solid red;
+	width: 60%;
+	background-color: #55CDFC;
+	border-radius: 25%;
+} 
+
+#holes_space{
+	display: flex;
+	border: 5px solid red;
+	height: 1%;
+	
+}
+
+.holeColumn{
+	flex-direction: row;
+	height: 50vh;
+	width: 10vh;
+	padding: 1%;
+	border-radius: 50%;
+}
+
+.holeP2{
+	border: 5px solid black;
+	height: 10vh;
+	width: 70%;
+	margin-right: 0;
+	margin-bottom: 100%;
+}
+
+.holeP1{
+	border: 5px solid black;
+	height: 10vh;
+	width: 70%;
+	margin-right: 0;
+}
+
+.holeP1:hover{border: dotted;}
+ 
+.pits{
+	flex-direction: column;
+	border: 5px solid red;
+	height: 25vh;
+	width: 10vh;
+	margin: 5%;
+	position: relative;
+	}
+	
+ 
+.seed{
+	border-radius: 50%;
+	border: 1px solid red;
+	height: 10px;
+	width: 10px;
+	background-color:#F7A8B8;
+	position:absolute;
+	
+	
+}
