@@ -19,10 +19,16 @@ resto da página:
 #signup - parte pra fazer signup que é trocável com o login
 #tableContent - formulário pra mudar a informação do tabuleiro
 
-HTML:
-corrigir/adicionar regras
 
 JavaScript:
-adicionar regra de turno extra
-definir butões de replay, textos de score corrente, etc
+cpu dificuldade
 organisar código 
+
+
+
+
+DANI
+Aparência do tabuleiro
+Overflow dos seeds
+editar o CSS (Mau gosto do Mateus)
+
