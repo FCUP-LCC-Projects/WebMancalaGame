@@ -1,45 +1,17 @@
-#board
-{
-    height:100px;
-    width:50%;
-    position: relative;
-    border-style: solid;
-    border-color: red;
-    padding: 10px 10px 8px 5px;
-		 
-}
+#board{ display: flex; justify-content: center; padding: 2%;  border: 5px solid red; width: 90%;} 
 
-.pits{
-    float:left;
-    border-color:blue;
-    border-style: solid;
-    height:90%;
-    width: 15%;
-  
-}
+#holes_space{display: flex; border: 5px solid red; }
 
-.pit_hole{
-    padding: 3px  0px 0px;
-    height: 90%;
-    width: 90%;
-    position: relative;
-    border-style: solid;
-    border-color: yellow;
+.holeColumn{flex-direction: row; height: 50vh; width: 10vh; padding: 1%;}
 
-}
-#holes_space{
-    float:left;
-    border-color:green;
-    border-style: solid;
-    height:90%;
-    width: 15%;
-}
+.holeP2{ border: 5px solid black; height: 10vh; width: 70%; margin-right: 0; margin-bottom: 100%; }
 
-.holeColumn
-{
-    float:left;
-    border-color:orange;
-    border-style: solid;
-    height:100%;
-    width: 15%;   
-}
+.holeP1{ border: 5px solid black; height: 10vh; width: 70%; margin-right: 0;}
+
+.holeP1:hover{border: dotted;}
+ 
+ .pits{ flex-direction: column;  border: 5px solid red; height: 50vh; width: 10vh; margin: 5%;}  
+ 
+ .seed{ border-radius: 50%; border: 2px solid red; height: 2px; width: 2px; }
+ 
+ 
