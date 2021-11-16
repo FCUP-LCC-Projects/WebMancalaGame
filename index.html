@@ -4,7 +4,7 @@
 <title>Mancala</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="stylesheet" href="board.css" type="text/css">
 <link rel="stylesheet" href="styles.css" type="text/css">
 <link rel="stylesheet" href="forms.css" type="text/css">
 </head>
@@ -63,7 +63,7 @@
 	<input type=radio id="mode_1p" name="game_mode" value="P1" required>
 		<label for="mode_1p">1P</label>
 	<input type=radio id="mode_2p" name="game_mode" value="P2">
-		<label for="mode_2p">2P</label><hr>
+		<label for="mode_2p">2P</label>(Primeira jogada)<hr> 
 
 	<span class="form_title">CPU level:</span>
 	<input type=radio id="cpu_1" name="cpu_level" value=0 required>
@@ -83,6 +83,7 @@
 <!-- Instruções de jogo-->
 <div id="instructions" style="display: block" >
 	<a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" ></i></a>
+	<center><h2>Regras</h2></center>
 	<p> <b>Objetivo:</b> Consegue mais pontos do que o adversário, movendo peças para a área própria ou capturando as do adversário.</p>
 	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
 	<p>Se a última peça da jogada actual for colocada num buraco vazio no lado do jogador, todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
@@ -111,7 +112,7 @@
 
 <!-- Informação para cada turno-->
 <center>
-	<p><a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp <a onclick="onClickToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp <a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
+	<p><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp &nbsp &nbsp &nbsp <a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp <a onclick="onClickToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp <a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
 	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
 </center>
 
@@ -136,6 +137,7 @@
 
 <script src="board.js"></script>
 <script src="scripts.js"></script>
+<script src="game.js"></script>
 
 </body>
 

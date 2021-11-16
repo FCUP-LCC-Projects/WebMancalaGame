@@ -1,0 +1,56 @@
+/*forms and text css*/
+
+
+#tableContent{
+    padding: 10px;
+    border: 8px solid #000;
+	display: inline-block;
+	width: 40%;
+}
+
+#tableContent .button{
+	width: 25%;
+	height: auto;
+	box-shadow: 0 0 2px #fff;
+}
+
+#login, #signup{
+	position: absolute;
+    padding: 9px 9px 0px 9px;
+    margin-top: 14px;
+    margin-left: 23%;
+	border: 3px solid #000;
+	border-radius: 5px;
+	box-shadow:  0 0 5px #fff;
+	background-color: #b9b8b8;
+	line-height: 0.5;
+}
+
+.form_title{
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Helvetica";
+	text-shadow: 0 0 3px #000;
+}
+
+#turn_info{
+	text-transform: uppercase;
+	border: 6px double #E0E0E0;
+	text-shadow: 0 0 5px #1A4504;
+}
+
+a:hover{
+	color: #35870c;
+	text-shadow: 0 0 10px #000;
+}
+
+#begin_game_text{
+	display: block;
+	border: 8px solid #000;
+	text-align: center;
+}
+
+#begin_game_text:hover{
+		box-shadow:  0 0 10px #fff;
+}
+

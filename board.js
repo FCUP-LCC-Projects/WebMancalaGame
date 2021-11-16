@@ -1,29 +1,95 @@
+/*Create Board Data Structure*/
 
-
-
-
-/*
-A FAZER:
-METER BOARD NÃO GLOBAL
-CERTIFICAR QUE QUANDO ACABA AS SEMETES NO BOARD SÃO RECOLHIDAS ANTES DA CONTAGEM
-SHOW RANKING
-CONFIRMAR SE MINMAX TA BEM
-*/
-
-
-var mode = "P1";
-var choice, P1_index, P2_index, p1Wins = 0, p2Wins = 0, extraTurn=false;
-
-function newGame(){
-	let turnInfo = document.getElementById("turn_info");
-	if(mode==="P2"){
-		turnInfo.innerHTML = tabuleiro.type + " turn";
-		cpuMove();
+function initTabuleiro(stats){
+	
+	tabuleiro.number_seeds = stats.number_seeds;
+	tabuleiro.number_cavities = stats.number_cavities;
+	tabuleiro.total_cavities = stats.total_cavities;
+	tabuleiro.difficulty = difficulties[stats.difficulty];
+	mode = stats.mode;
+	tabuleiro.board = new Array(tabuleiro.total_cavities);
+	
+	for(let i=0; i<tabuleiro.total_cavities-1; i++){
+		tabuleiro.board[i] = tabuleiro.number_seeds;
 	}
-	else{
-		turnInfo.innerHTML = "Player 1's turn";
+	
+	P1_index = tabuleiro.number_cavities;
+	P2_index = tabuleiro.total_cavities-1;
+	
+	tabuleiro.board[P1_index] = 0;
+	tabuleiro.board[P2_index] = 0;
+}
+
+/* Create UI */
+function initBoard(){
+	holeSpace = document.getElementById("holes_space");
+	holeSpace.style.display='flex';
+	for(i=0;i<tabuleiro.number_cavities; i++){
+		initHoleColumns(holeSpace, i);
 	}
 }
+
+function initHoleColumns(holes_space, id){
+	const column =  document.createElement("div");
+	column.className = "holeColumn";
+	
+	holes_space.appendChild(column);
+	initHole(column, id);
+}
+
+function initHole(column, id){
+	const hole_p1 = document.createElement("div");
+	hole_p1.className = "holeP1";
+	hole_p1.id = id;
+	const hole_p2 = document.createElement("div");
+	hole_p2.className = "holeP2";
+	hole_p2.id = (P2_index-1-id);
+	
+	const p1_text = document.createElement("span");
+	p1_text.className = "tooltiptext";
+	p1_text.id = id;
+	const p2_text = document.createElement("span");
+	p2_text.className = "tooltiptext";
+	p2_text.id = (P2_index-1-id);
+	
+	column.appendChild(hole_p2);
+	column.appendChild(hole_p1);
+	
+	column.appendChild(p2_text);
+	column.appendChild(p1_text);
+	
+	hole_p1.onmouseover = updateOnHover;
+	hole_p2.onmouseover = updateOnHover;
+	
+	hole_p1.onclick = updateOnClick;
+	
+
+	initSeeds(hole_p2);
+	initSeeds(hole_p1);
+}
+
+function initSeeds(hole){
+	for(let i=1; i<=tabuleiro.number_seeds; i++){
+		const seed = document.createElement("div");
+		seed.className = "seed";
+		
+		hole.appendChild(seed);
+	}
+}
+
+/*Event Listeners*/
+
+function updateOnHover(){
+	let id = this.id;
+	if(this.id > P1_index) id--;
+	document.getElementsByClassName('tooltiptext')[id].innerHTML = tabuleiro.board[this.id];
+}
+
+function updateOnClick(){
+		p1Move(this.id);
+}
+
+/* Update values*/
 
 function updateSeeds(state, seeds, mode, board){
 	board[state++]  = 0;
@@ -36,8 +102,9 @@ function updateSeeds(state, seeds, mode, board){
 			board[state++]++; // certificar se não atualiza o state antes de atualizar o valor de board[state]
 			seeds--;
 		}
-		if(state == tabuleiro.total_cavities) state = 0;
 	}
+	if(state == P1_index && mode==="P2") state++;
+	else if(state == P2_index && mode==="P1") state = 0;
 	
 	if((mode==="P1" && state==P1_index) || (mode==="P2" && state==P2_index)) {board[state++]++; seeds--; extraTurn=true;} //+1 turn 
 	else if(board[state]==0){
@@ -46,76 +113,49 @@ function updateSeeds(state, seeds, mode, board){
 		seeds--;
 	}
 	else{
-		board[state++]++; 
+		board[state]++; 
 		seeds--;
 	}
 	return board;
 }
 
 
-function p1Move(state){
-	if(tabuleiro.board[state]!=0 ){
-		updateSeeds(state, tabuleiro.board[state], "P1", tabuleiro.board);
-		updateBoard();
-		document.getElementById('score-player1').innerHTML = tabuleiro.board[P1_index];
-		if(!checkForOver(tabuleiro.board)){
-			if(!extraTurn){
-			//p2 turn
-			mode = "P2";
-			cpuMove();
-			}
-			extraTurn = false;
+/*Update UI*/
+
+function generateSeeds(hole, number_seeds){
+	const seedList = hole.childNodes;
+
+	while(seedList.length != number_seeds){
+		if(seedList.length > number_seeds){ //remove
+			hole.removeChild(hole.lastChild);
 		}
-		else{
-			tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
-			tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
-			showRecords(gameOver(tabuleiro.board));
+		if(seedList.length < number_seeds){ //append
+			const seed = document.createElement("div");
+			seed.className = "seed";
+		
+			hole.appendChild(seed);
 		}
 	}
 }
 
-function cpuMove(){
-	let turnInfo = document.getElementById("turn_info");
-	turnInfo.innerHTML = "Player 2's turn";
-	tempBoard = [...tabuleiro.board];
-	minimax(tempBoard, 0);
-	var state = choice;
-	console.log("choice "+state);
-	updateSeeds(state, tabuleiro.board[state], "P2", tabuleiro.board);
-	updateBoard();
-	choice = []
-	mode = "P1";
-	document.getElementById('score-player2').innerHTML = tabuleiro.board[P2_index];
-	if(!checkForOver(tabuleiro.board)){
-		if(!extraTurn)
-			turnInfo.innerHTML = "Player 1's turn";
-		else{
-			extraTurn = false;
-			cpuMove();
-		}
-	}
-	else{
-		tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
-		tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
-		showRecords(gameOver(tabuleiro.board));
+ function updateBoard(){
+	const pits = document.getElementsByClassName("pit_hole"); //[0] - p1, [1] - 2
+	generateSeeds(pits[1] , tabuleiro.board[P1_index]); //update P1 pit
+	generateSeeds(pits[0], tabuleiro.board[P2_index]);
+
+	const spacesP1 = document.getElementsByClassName("holeP1");
+	const spacesP2 = document.getElementsByClassName("holeP2");
+	for(i=0, k=(P1_index-1); i<P2_index; i++){
+		if(i == P1_index) continue; //skip P1 pit
+		else if(i < P1_index)
+		generateSeeds(spacesP1[i], tabuleiro.board[i]);
+		else
+		generateSeeds(spacesP2[k--], tabuleiro.board[i]);
 	}
 }
 
-function totalPoints(board, start, end){
-	let result=0;
-	for(i=start; i<end; i++)
-		result = result+1*board[i]; //1*board to force addition not concatenation
-	return result;
-}
 
-function checkForOver(board){
-	let resultP1=totalPoints(board,0,P1_index);
-	let resultP2=totalPoints(board,(+P1_index+1), P2_index);
-	
-	if(resultP1==0 || resultP2==0) return true;
-	return false;
-}
-
+/*Show ranking*/
 function showRecords(result){
 	var score = result;
 	var turnInfo = document.getElementById('turn_info');
@@ -141,71 +181,39 @@ function showRecords(result){
 	wins.innerHTML = p1Wins + " - " + p2Wins;
 	
 	document.getElementById('play_again_text').style.display = "initial";
+	document.getElementById('settings_text').style.display = "initial";
 	clearTable();
 }
 
-function gameOver(board){
-	if(board[P1_index] < board[P2_index]) return 1; //P2 wins 
-	else if(board[P1_index] > board[P2_index]) return 2; //P1 wins
-	else return 3; //Tie
+/*Reset UI*/
+
+ function clearSpace(){
+	 document.getElementById('board').style.display  = "flex";
+	 document.getElementById('turn_info').style.visibility= 'visible';
+	 document.getElementById('login').style.display = "none";
+	 document.getElementById('signup').style.display  = "none";
+	 document.getElementById('tableContent').style.display  = "none";
+	 document.getElementById('instructions').style.display  = "none";
+	 document.getElementById('begin_game_text').style.display = "none";
+	 document.getElementById('play_again_text').style.display = "none";
+	 document.getElementById('instruction_text').style.display = "initial";
+	 document.getElementById('give_up_text').style.display = "initial";
+	 document.getElementById('settings_text').style.display = "none";
+ }
+ 
+function clearTable(){
+	document.getElementById('board').style.display='none';
+	document.getElementById('give_up_text').style.display = 'none';
+	document.getElementById('instruction_text').style.display = 'none';
+	
+	const pits = document.getElementsByClassName('pit_hole');
+	for(i=0; i<2; i++)
+		while(pits[i].firstChild)
+			pits[i].removeChild(pits[i].lastChild);
+	
+	const holeSpace = document.getElementById('holes_space');
+	while(holeSpace.firstChild)
+		holeSpace.removeChild(holeSpace.lastChild);
 }
 
-function getNewState(move, tempBoard){
-	const board = updateSeeds(move, tempBoard[move], mode, tempBoard);
-	if(!extraTurn) changeMode();
-	extraTurn = false;
-	return board;
-}
-
-function legalMove(move, board){
-	if(mode=="P2") move = 1*i+1*P1_index+1;
-	else					move = i;
-	
-	if(board[move]==0 || move==P1_index || move==P2_index) return -1;
-	return move;
-	
-}
-
-function changeMode(){
-	if(mode==="P1") mode="P2";
-	else			mode="P1";
-}
-	
-function scoreMinMax(board, depth){
-	var score = gameOver(board);
-	console.log("depth: "+depth);
-	if(score==1) return 10-depth;
-	else if(score==2) return depth-10;
-	else		return 0;
-}
-
-function minimax(board, depth){
-	if(checkForOver(board) || depth>=tabuleiro.difficulty)	return scoreMinMax(board, depth);
-	
-	var scores = new Array();
-	var moves = new Array();
-	var possible_board, move;
-	depth++;
-	for(i=0; i<tabuleiro.number_cavities; i++){
-		move = legalMove(i, board);
-		if(move==-1) continue;
-		possible_board = getNewState(move, board);
-		scores.push(minimax(possible_board, depth));
-		moves.push(move);	
-	}
-	
-	var max_score, max_score_state, min_score, min_score_state;
-	if(mode==="P2"){
-		max_score = Math.max.apply(Math, scores);
-		max_score_state = scores.indexOf(max_score);
-		choice = moves[max_score_state];
-		return max_score;
-	}
-	else{
-		min_score = Math.min.apply(Math, scores);
-		min_score_state = scores.indexOf(min_score);
-		choice = moves[min_score_state];
-		return min_score;
-	}
-}
 
