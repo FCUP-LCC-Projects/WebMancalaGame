@@ -4,40 +4,49 @@ var tabuleiro = {
 	total_cavities: 14,
 	difficulty: 1,
 	mode: "1P",
+	type: "CPU",
 }
 
-window.onload = function(){  //prevent script from loading before html page
-}
+const difficulties = [10, 20, 10000];
 
 function loginSignToggle(){
 	const visibilityLogin = document.getElementById('login');
 		const visibilitySign = document.getElementById("signup");
-		if(visibilityLogin.style.display==="block"){
+		if(visibilityLogin.style.display==="inline-block"){
 			visibilityLogin.style.display = "none";
-			visibilitySign.style.display = "block";
+			visibilitySign.style.display = "inline-block";
 		}
 		else{
-			visibilityLogin.style.display = "block";
 			visibilitySign.style.display = "none";
+			visibilityLogin.style.display = "inline-block";
 		}
 }
+ 
+ function giveUp(){
+	 showRecords(1);
+ }
+ 
  
  
  function beginGame(){
 	 clearSpace();
 	 initTabuleiro(tabuleiro);
 	 initBoard();
-	 document.getElementById('turn_info').style.visibility= 'visible';
-	 document.getElementById('beginGameText').style.display='none';
 	 newGame();
  }
  
  
  function clearSpace(){
+	 document.getElementById('board').style.display  = "flex";
+	 document.getElementById('turn_info').style.visibility= 'visible';
 	 document.getElementById('login').style.display = "none";
 	 document.getElementById('signup').style.display  = "none";
-	 //document.getElementById('tableContents').style.display  = "none";
-	 //document.getElementById('instructions').style.display  = "none";
+	 document.getElementById('tableContent').style.display  = "none";
+	 document.getElementById('instructions').style.display  = "none";
+	 document.getElementById('begin_game_text').style.display = "none";
+	 document.getElementById('play_again_text').style.display = "none";
+	 document.getElementById('instruction_text').style.display = "initial";
+	 document.getElementById('give_up_text').style.display = "initial";
  }
  
  function formButtonHandler() {
@@ -90,6 +99,7 @@ function generateSeeds(hole, number_seeds){
 
 function clearTable(){
 	document.getElementById('board').style.display='none';
+	document.getElementById('give_up_text').style.display = 'none';
 	
 	const pits = document.getElementsByClassName('pit_hole');
 	for(i=0; i<2; i++)
@@ -103,10 +113,11 @@ function clearTable(){
 
 
 function initTabuleiro(stats){
-
+	
 	tabuleiro.number_seeds = stats.number_seeds;
 	tabuleiro.number_cavities = stats.number_cavities;
 	tabuleiro.total_cavities = stats.total_cavities;
+	tabuleiro.difficulty = difficulties[stats.difficulty];
 	mode = stats.mode;
 	tabuleiro.board = new Array(tabuleiro.total_cavities);
 	
@@ -118,12 +129,12 @@ function initTabuleiro(stats){
 	P2_index = tabuleiro.total_cavities-1;
 	
 	tabuleiro.board[P1_index] = 0;
-	tabuleiro.board[tabuleiro.total_cavities-1] = 0;
+	tabuleiro.board[P2_index] = 0;
 }
 
 function initBoard(){
 	holeSpace = document.getElementById("holes_space");
-	holeSpace.style.display='block';
+	holeSpace.style.display='flex';
 	for(i=0;i<tabuleiro.number_cavities; i++){
 		initHoleColumns(holeSpace, i);
 	}
