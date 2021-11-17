@@ -199,6 +199,7 @@ function showRecords(result){
 	 document.getElementById('instruction_text').style.display = "initial";
 	 document.getElementById('give_up_text').style.display = "initial";
 	 document.getElementById('settings_text').style.display = "none";
+	 document.getElementById('give_up').style.display = "block";
  }
  
 function clearTable(){

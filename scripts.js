@@ -25,8 +25,16 @@ function loginSignToggle(){
 
 function onClickToggle(){
 	var div =  document.getElementById('instructions');
-	if(div.style.display==="block") div.style.display="none";
-	else					div.style.display="block";
+	if(div.style.display==="block"){
+		div.style.display="none";
+		document.getElementById('turn_info').style.display = "block";
+		document.getElementById('give_up').style.display = "block";
+	}
+	else	{
+		div.style.display="block";
+		document.getElementById('turn_info').style.display = "flow-root";
+		document.getElementById('give_up').style.display = "flow-root";
+	}
 }
 
 function settingsToggle(){
