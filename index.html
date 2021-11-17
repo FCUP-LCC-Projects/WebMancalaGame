@@ -14,7 +14,7 @@
 <img src="logotipo.png" alt="Mancala" />
 
 
-<!-- FORMULÁRIOS PARA SIGN IN E LOGIN-->
+<!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
 <form id="login" style="display: inline-block;">
 	<span class="form_title">LOGIN</span>
 		Utilizador: <input type=text size=8> 
@@ -31,10 +31,11 @@
 
 
 <!-- About page-->
-<p>Welcome to Mancala! You can sign in to register your scores to your account or play logged out (NA). By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
+
+<p id=about>Welcome to Mancala! You can sign in to register your scores to your account or play logged out (NA). By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
 
 
-<!-- FORMULÁRIO PARA DETALHES DE JOGO-->
+<!-- FORMULÃ�RIO PARA DETALHES DE JOGO-->
 <form id="tableContent" >
 
 	<span class="form_title">Number of hollows:</span>
@@ -71,7 +72,7 @@
 	<input type=radio id="cpu_1" name="cpu_level" value=1 >
 		<label for="mode_1p">Intermédio</label>
 	<input type=radio id="cpu_1" name="cpu_level" value=2 >
-		<label for="mode_1p">Díficil</label><hr>
+		<label for="mode_1p">Difícil</label><hr>
 
 	<center>
 	<input class=button type=reset value="Reset">
@@ -85,7 +86,7 @@
 	<a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" ></i></a>
 	<center><h2>Regras</h2></center>
 	<p> <b>Objetivo:</b> Consegue mais pontos do que o adversário, movendo peças para a área própria ou capturando as do adversário.</p>
-	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distríbuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
+	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distribuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
 	<p>Se a última peça da jogada actual for colocada num buraco vazio no lado do jogador, todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
 	<p> Se a última peça da jogada atual for colocada no depósito então joga-se outra vez.</p>
 	<p> O jogo acaba quando um dos jogadores já não tem mais peças disponíveis. </p>
@@ -106,13 +107,13 @@
 </table><br>
 
 
-<!-- Botão/texto para iniciar jogo-->
+<!-- BotÃ£o/texto para iniciar jogo-->
 <a onclick="beginGame()" id="begin_game_text"><h2>Begin Game</h2></a>
 
 
-<!-- Informação para cada turno-->
+<!-- InformaÃ§Ã£o para cada turno-->
 <center>
-	<p><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp &nbsp &nbsp &nbsp <a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp <a onclick="onClickToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp <a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
+	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp &nbsp &nbsp &nbsp <a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp <a onclick="onClickToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp <a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
 	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
 </center>
 

@@ -7,8 +7,9 @@ body,html {max-width: 100%;height: 100%; overflow-x: inital; }
 body{
 	font-family: "Ubuntu";
 	font-size: 18px;
-	background: #3c3c3c fixed;
+	background: #312E2B fixed;
 	color: #ffffff;
+	padding: 16px 173px 16px 173px;
 }
 
 img{
@@ -25,13 +26,15 @@ th {
 #instructions{
 	overflow-y: scroll;
 	overflow-x: hidden;
-	border: 3px solid #000;
+	border: 8px solid #000;
 	border-radius: 5px;
 	width: 45%;
 	float: right;
 	margin-right: 5%;
 	padding: 5px;
 	height: 40%;
+	background-color: #00000033;
+	color: FFFFFFA6;
 }
 
 #instructions .icon{
@@ -51,7 +54,7 @@ th {
   visibility: hidden;
   width: 120px;
   background-color: black;
-  color: #fff;
+  color: FFFFFFA6;
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
@@ -66,3 +69,8 @@ th {
 .holeP1:hover + .tooltiptext{
 	visibility: visible;
 }
+
+
+
+
+

@@ -6,12 +6,16 @@
     border: 8px solid #000;
 	display: inline-block;
 	width: 40%;
+	background-color: #00000033;
+	border-radius: 5px;
 }
 
 #tableContent .button{
 	width: 25%;
 	height: auto;
 	box-shadow: 0 0 2px #fff;
+	
+	
 }
 
 #login, #signup{
@@ -22,8 +26,8 @@
 	border: 3px solid #000;
 	border-radius: 5px;
 	box-shadow:  0 0 5px #fff;
-	background-color: #b9b8b8;
 	line-height: 0.5;
+	background-color: #00000033;
 }
 
 .form_title{
@@ -40,17 +44,57 @@
 }
 
 a:hover{
-	color: #35870c;
+	color: FFFFFF;
 	text-shadow: 0 0 10px #000;
 }
 
 #begin_game_text{
 	display: block;
-	border: 8px solid #000;
+	min-height: var(--buttonHeight,5rem);
+	--secondaryBorderColor: rgba(0,0,0,0.2);
 	text-align: center;
+	-borderRadius: 1rem;
+    -borderHeight: .5rem;
+    -buttonHeight: 5.5rem;
+    -buttonPaddings: .5rem 3rem;
+    --borderColor: #537133;
+    width: 38%;
+	background-color: #7fa650;
+	align-items: center;
+    border: 0;
+    border-radius: 1rem ;
+    box-shadow: 0 0.5rem 0 0 #537133, 0 0.7rem 0.95rem 0.05rem rgba(0,0,0,0.2);
+    display: inline-flex;
+    font-size: var(--fontSize,1.5rem);
+    font-weight: 600;
+    justify-content: center;
+    margin-bottom: var(--borderHeight);
+    max-width: 100%;
+    overflow: hidden;
+    padding: var(--buttonPaddings,.5rem 2rem);
+    position: relative;
+    text-align: center;
+    
 }
 
 #begin_game_text:hover{
-		box-shadow:  0 0 10px #fff;
+		box-shadow:  0 0 2px #fff;
+		box-shadow: 0 0.5rem 0 0 #537133, 0 0.7rem 0.95rem 0.05rem rgba(0,0,0,0.2);
+		
 }
+
+#about {
+	background-color: #282424;
+	border: 3px solid #000;
+	border-radius: 5px;
+
+}
+
+#give_up {
+	background-color: #282424;
+	border: 3px solid #000;
+	border-radius: 5px;
+
+}
+	
 
