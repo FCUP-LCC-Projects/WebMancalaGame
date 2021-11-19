@@ -32,7 +32,7 @@
 #login, #signup{
 	position: absolute;
     padding: 9px 9px 0px 9px;
-    margin-left: 20%;
+    margin-left: 25.8%;
 	border-radius: 5px;
 	box-shadow:  0 0 0px #fff;
 	line-height: 0.5;
@@ -50,6 +50,8 @@
 	text-transform: uppercase;
 	border: 6px double #E0E0E0;
 	text-shadow: 0 0 5px #1A4504;
+	width:94.6%;
+	margin-right:10.2%;
 }
 
 a:hover{
@@ -95,7 +97,7 @@ a:hover{
 	background-color: #00000033;
 	
 	border-radius: 5px;
-	width:94.6%;
+	width:95.3%;
 
 }
 
@@ -104,6 +106,8 @@ a:hover{
 	
 	border-radius: 5px;
 	display: none;
+	width:95.3%;
+	margin-right:10%;
 }
 	
 

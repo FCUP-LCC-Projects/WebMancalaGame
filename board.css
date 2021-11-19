@@ -7,7 +7,7 @@
 	width: 80%;
 	background-color:#eeeed2;
 	border-radius: 1%;
-	margin-left: 10%;
+	margin-left: 5.5%;
 	
 } 
 
@@ -74,6 +74,7 @@
 	height: 15px;
 	width: 15px;
 	position: absolute;
+	color:white;
 }
 
 .tooltiptext {

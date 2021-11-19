@@ -1,4 +1,4 @@
-const COLORS = ["crimson", "cyan", "fuchsia", "greenyellow", "yellow"];
+const COLORS = ["#f8f8f8", "#6d6d6d", "#eeeed2", "#565352", "#454443"];
 /*Create Board Data Structure*/
 
 function initTabuleiro(stats){
