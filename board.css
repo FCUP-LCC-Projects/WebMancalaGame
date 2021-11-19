@@ -3,10 +3,11 @@
 	display: none;
 	justify-content: center;
 	padding: 2%;
-	border: 5px solid #000;
+	
 	width: 60%;
 	background-color:#eeeed2;
-	border-radius: 25%;
+	border-radius: 1%;
+	margin-left: 20%;
 	
 } 
 
@@ -15,6 +16,8 @@
 	border: 5px solid #5a5b59;
 	height: 1%;
 	padding: 16px 0 0 10px;
+	margin-top: 5%;
+	border-radius: 3%;
 	
 }
 
@@ -33,6 +36,7 @@
 	margin-right: 0;
 	margin-bottom: 100%;
 	background-color: #769656;
+	border-radius: 5%
 }
 
 .holeP1{
@@ -41,6 +45,7 @@
 	width: 70%;
 	margin-right: 0;
 	background-color: #769656;
+	border-radius: 5%
 }
 
 .holeP1:hover{border: dotted;}
@@ -48,10 +53,11 @@
 .pits{
 	flex-direction: column;
 	border: 5px solid #5a5b59;
-	height: 25vh;
-	width: 10vh;
+	height: 35vh;
+	width: 500px;
 	margin: 5%;
 	background-color: #769656;
+	border-radius: 3%
 	}
 	
  
@@ -63,5 +69,23 @@
 	background-color:#f8f8f8;
 	
 	
+	
+}
+
+#score-player1{
+	background-color:#5a5b59;
+	height:5%;
+	width: 10%;
+	border-radius:20%;
+	justify-content: center;
+	
+}
+
+#score-player2{
+	background-color:#5a5b59;
+	height:5%;
+	width: 10%;
+	border-radius:20%;
+	justify-content: center;
 	
 }
