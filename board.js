@@ -1,3 +1,4 @@
+const COLORS = ["crimson", "cyan", "fuchsia", "greenyellow", "yellow"];
 /*Create Board Data Structure*/
 
 function initTabuleiro(stats){
@@ -45,22 +46,22 @@ function initHole(column, id){
 	hole_p2.className = "holeP2";
 	hole_p2.id = (P2_index-1-id);
 	
-	const p1_text = document.createElement("span");
+	const p1_text = document.createElement("h5");
 	p1_text.className = "tooltiptext";
 	p1_text.id = id;
-	const p2_text = document.createElement("span");
+	p1_text.innerHTML = tabuleiro.number_seeds;
+	const p2_text = document.createElement("h5");
 	p2_text.className = "tooltiptext";
 	p2_text.id = (P2_index-1-id);
-	
-	column.appendChild(hole_p2);
-	column.appendChild(hole_p1);
+	p2_text.innerHTML = tabuleiro.number_seeds;
 	
 	column.appendChild(p2_text);
+		
+	column.appendChild(hole_p2);	
+	column.appendChild(hole_p1);
+	
 	column.appendChild(p1_text);
-	
-	hole_p1.onmouseover = updateOnHover;
-	hole_p2.onmouseover = updateOnHover;
-	
+
 	hole_p1.onclick = updateOnClick;
 	
 
@@ -72,17 +73,34 @@ function initSeeds(hole){
 	for(let i=1; i<=tabuleiro.number_seeds; i++){
 		const seed = document.createElement("div");
 		seed.className = "seed";
-		
+		generateStyle(seed, i);
 		hole.appendChild(seed);
 	}
 }
 
+function generateStyle(seed, numSeeds){
+	let indexColor = numSeeds%COLORS.length;
+	seed.style.backgroundColor = COLORS[indexColor];
+	let top = (((Math.random()*120)));
+	let left = (((Math.random()*55)));
+	seed.style.marginTop = top+"%";
+	seed.style.marginLeft = left+"%";
+}
+
 /*Event Listeners*/
 
-function updateOnHover(){
-	let id = this.id;
-	if(this.id > P1_index) id--;
-	document.getElementsByClassName('tooltiptext')[id].innerHTML = tabuleiro.board[this.id];
+function updateTooltip(idHole, preventMix){
+	const columns = document.getElementsByClassName("holeColumn");
+	if(idHole > P1_index){
+		let id = idHole--;
+		let column = id%P1_index;
+		columns[column].firstChild.innerHTML = tabuleiro.board[P2_index-1-column]; 
+	}//first tooltip
+	else{
+		let column = idHole%P1_index;
+		columns[column].lastChild.innerHTML = tabuleiro.board[idHole];
+	}		//second tooltip
+
 }
 
 function updateOnClick(){
@@ -119,7 +137,6 @@ function updateSeeds(state, seeds, mode, board){
 	return board;
 }
 
-
 /*Update UI*/
 
 function generateSeeds(hole, number_seeds){
@@ -132,7 +149,7 @@ function generateSeeds(hole, number_seeds){
 		if(seedList.length < number_seeds){ //append
 			const seed = document.createElement("div");
 			seed.className = "seed";
-		
+			generateStyle(seed, seedList.length);
 			hole.appendChild(seed);
 		}
 	}
@@ -147,10 +164,14 @@ function generateSeeds(hole, number_seeds){
 	const spacesP2 = document.getElementsByClassName("holeP2");
 	for(i=0, k=(P1_index-1); i<P2_index; i++){
 		if(i == P1_index) continue; //skip P1 pit
-		else if(i < P1_index)
+		else if(i < P1_index){
 		generateSeeds(spacesP1[i], tabuleiro.board[i]);
-		else
+		updateTooltip(i);
+		}
+		else{
 		generateSeeds(spacesP2[k--], tabuleiro.board[i]);
+		updateTooltip(i);
+		}
 	}
 }
 
@@ -200,6 +221,7 @@ function showRecords(result){
 	 document.getElementById('give_up_text').style.display = "initial";
 	 document.getElementById('settings_text').style.display = "none";
 	 document.getElementById('give_up').style.display = "block";
+	 document.getElementById('icon').onclick = instructionToggle;
  }
  
 function clearTable(){
@@ -215,6 +237,9 @@ function clearTable(){
 	const holeSpace = document.getElementById('holes_space');
 	while(holeSpace.firstChild)
 		holeSpace.removeChild(holeSpace.lastChild);
+	
+	document.getElementById('score-player1').innerHTML = 0;
+	document.getElementById('score-player2').innerHTML = 0;
 }
 
 

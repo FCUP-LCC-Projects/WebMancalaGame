@@ -4,10 +4,10 @@
 	justify-content: center;
 	padding: 2%;
 	
-	width: 60%;
+	width: 80%;
 	background-color:#eeeed2;
 	border-radius: 1%;
-	margin-left: 20%;
+	margin-left: 10%;
 	
 } 
 
@@ -15,8 +15,7 @@
 	display: flex;
 	border: 5px solid #5a5b59;
 	height: 1%;
-	padding: 16px 0 0 10px;
-	margin-top: 5%;
+	margin-top: 3.5%;
 	border-radius: 3%;
 	
 }
@@ -34,9 +33,10 @@
 	height: 10vh;
 	width: 70%;
 	margin-right: 0;
-	margin-bottom: 100%;
 	background-color: #769656;
-	border-radius: 5%
+	border-radius: 5%;
+	margin-bottom: 25%;
+	position: relative;
 }
 
 .holeP1{
@@ -44,40 +44,51 @@
 	height: 10vh;
 	width: 70%;
 	margin-right: 0;
+	margin-top: 25%;
 	background-color: #769656;
-	border-radius: 5%
+	border-radius: 5%;
+	position: relative;
 }
 
-.holeP1:hover{border: dotted;}
+.holeP1:hover{border: double;}
  
 .pits{
 	flex-direction: column;
 	border: 5px solid #5a5b59;
 	height: 35vh;
-	width: 500px;
-	margin: 5%;
+	width: 100%;
+	margin: 3%;
 	background-color: #769656;
 	border-radius: 3%
 	}
 	
+ .pit_hole{
+	position: relative;
+	width: initial;
+	height: inherit;
+}
  
 .seed{
 	border-radius: 50%;
-	border: 1px solid #5a5b59;
-	height: 10px;
-	width: 10px;
-	background-color:#f8f8f8;
-	
-	
-	
+	border: 1px groove white;
+	height: 15px;
+	width: 15px;
+	position: absolute;
 }
+
+.tooltiptext {
+  display: contents;
+  color: black;
+  font-size: large;
+}
+
 
 #score-player1{
 	background-color:#5a5b59;
 	height:5%;
 	width: 10%;
 	border-radius:20%;
-	justify-content: center;
+	text-align: center;
 	
 }
 
@@ -86,6 +97,6 @@
 	height:5%;
 	width: 10%;
 	border-radius:20%;
-	justify-content: center;
+	text-align: center;
 	
 }

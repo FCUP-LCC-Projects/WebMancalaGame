@@ -18,6 +18,17 @@
 	
 }
 
+#rules_text {
+    padding: 2px;
+    border: 10px double #597739;
+    display: none;
+}
+
+#rules_text:hover{
+	 border: 10px double white;
+}
+
+
 #login, #signup{
 	position: absolute;
     padding: 9px 9px 0px 9px;

@@ -23,8 +23,8 @@ function loginSignToggle(){
 		}
 }
 
-function onClickToggle(){
-	var div =  document.getElementById('instructions');
+function instructionToggle(){
+	const div =  document.getElementById('instructions');
 	if(div.style.display==="block"){
 		div.style.display="none";
 		document.getElementById('turn_info').style.display = "block";
@@ -38,9 +38,23 @@ function onClickToggle(){
 }
 
 function settingsToggle(){
-	var div =  	document.getElementById('tableContent');
-	if(div.style.display==="none") div.style.display="block";
+	const div =  	document.getElementById('tableContent');
+	if(div.style.display==="none") div.style.display="contents";
 	else					div.style.display="none";
+}
+
+function rulesToggle(){
+	const div = document.getElementById('instructions');
+	if(div.style.display==="block"){
+		div.style.display="none";
+		document.getElementById('rules_text').style.display = "initial";
+		document.getElementById('tableContent').style.display = "contents";
+	}
+	else	{
+		div.style.display="block";
+		document.getElementById('rules_text').style.display = "none";
+		document.getElementById('tableContent').style.display = "inline-block";
+	}
 }
 
 /*Form handler*/
