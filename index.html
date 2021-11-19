@@ -4,14 +4,14 @@
 <title>Mancala</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="board.css" type="text/css">
-<link rel="stylesheet" href="styles.css" type="text/css">
-<link rel="stylesheet" href="forms.css" type="text/css">
+<link rel="stylesheet" href="assets/css/board.css" type="text/css">
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css">
+<link rel="stylesheet" href="assets/css/forms.css" type="text/css">
 </head>
 <body>
 
 <!-- LOGOTIPO -->
-<img src="logotipo.png" alt="Mancala" />
+<img src="assets/img/logotipo.png" alt="Mancala" />
 
 
 <!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
@@ -34,6 +34,9 @@
 
 <p id=about>Welcome to Mancala! You can sign in to register your scores to your account or play logged out (NA). By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
 
+
+<!-- Show Instructions Button-->
+<center><h3 id="rules_text"><a onclick="rulesToggle()">Instructions</a></h3></center><br><hr>
 
 <!-- FORMULÃ�RIO PARA DETALHES DE JOGO-->
 <form id="tableContent" >
@@ -64,7 +67,7 @@
 	<input type=radio id="mode_1p" name="game_mode" value="P1" required>
 		<label for="mode_1p">1P</label>
 	<input type=radio id="mode_2p" name="game_mode" value="P2">
-		<label for="mode_2p">2P</label>(Primeira jogada)<hr> 
+		<label for="mode_2p">2P</label> (Primeira jogada)<hr> 
 
 	<span class="form_title">CPU level:</span>
 	<input type=radio id="cpu_1" name="cpu_level" value=0 required>
@@ -83,7 +86,7 @@
 
 <!-- Instruções de jogo-->
 <div id="instructions" style="display: block" >
-	<a href="javascript:void(0);" class="icon" onclick="onClickToggle()"><i class="fa fa-window-close" ></i></a>
+	<a href="javascript:void(0);" id="icon" onclick="rulesToggle()"><i class="fa fa-window-close"></i></a>
 	<center><h2>Regras</h2></center>
 	<p> <b>Objetivo:</b> Consegue mais pontos do que o adversário, movendo peças para a área própria ou capturando as do adversário.</p>
 	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distribuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
@@ -115,33 +118,34 @@
 <center>
 	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp &nbsp &nbsp &nbsp 
 	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp
-	<a onclick="onClickToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp 
+	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp 
 	<a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
 	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
 </center>
 
 <!-- Tabuleiro-->
+
 <div id="board" style="margin-top: 10px;">
 
-	<p id="score-player2"></p>
+	<h3 id="score-player2"></h3>
 	<div class="pits">
 		<div class="pit_hole"></div>
 	</div>
 
 	<div id="holes_space"></div>
 
-	<p id="score-player1"></p>
+	
 	<div class="pits">
 		<div class="pit_hole"></div>
 	</div>
+	<h3 id="score-player1"></h3>
 
 </div>
 
 
-
-<script src="board.js"></script>
-<script src="scripts.js"></script>
-<script src="game.js"></script>
+<script src="assets/js/board.js"></script>
+<script src="assets/js/scripts.js"></script>
+<script src="assets/js/game.js"></script>
 
 </body>
 
