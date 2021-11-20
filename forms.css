@@ -32,7 +32,7 @@
 #login, #signup{
 	position: absolute;
     padding: 9px 9px 0px 9px;
-    margin-left: 25.8%;
+    margin-left: 20%;
 	border-radius: 5px;
 	box-shadow:  0 0 0px #fff;
 	line-height: 0.5;
@@ -61,13 +61,7 @@ a:hover{
 #begin_game_text{
 	display: block;
 	min-height: var(--buttonHeight,5rem);
-	--secondaryBorderColor: rgba(0,0,0,0.2);
 	text-align: center;
-	-borderRadius: 1rem;
-    -borderHeight: .5rem;
-    -buttonHeight: 5.5rem;
-    -buttonPaddings: .5rem 3rem;
-    --borderColor: #537133;
     width: 37.5%;
 	background-color: #7fa650;
 	align-items: center;

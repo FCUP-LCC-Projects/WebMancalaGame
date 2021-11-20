@@ -1,5 +1,10 @@
 /*Variáveis de jogo*/
-var mode,choice, P1_index, P2_index, p1Wins = 0, p2Wins = 0, extraTurn=false;
+var mode,
+	choice = 7, 
+	P1_index, P2_index, 
+	p1Wins = 0, 
+	p2Wins = 0, 
+	extraTurn=false;
 
 
 /*Initiate game*/
@@ -27,6 +32,7 @@ function checkForOver(board){
 /*Player turn events*/
 
 function p1Move(state){
+
 	if(tabuleiro.board[state]!=0 ){
 		updateSeeds(state, tabuleiro.board[state], "P1", tabuleiro.board);
 		updateBoard();
@@ -48,6 +54,7 @@ function p1Move(state){
 }
 
 function cpuMove(){
+
 	let turnInfo = document.getElementById("turn_info");
 	turnInfo.innerHTML = "Player 2's turn";
 	tempBoard = [...tabuleiro.board];
@@ -55,11 +62,11 @@ function cpuMove(){
 	
 	var state = choice;
 	
-	console.log("choice "+state);
-	
+
 	updateSeeds(state, tabuleiro.board[state], "P2", tabuleiro.board);
+
 	updateBoard();
-	console.log(tabuleiro.board); 
+
 	
 	document.getElementById('score-player2').innerHTML = tabuleiro.board[P2_index];
 	
@@ -87,9 +94,9 @@ function cpuMove(){
 function minimax(board, depth){
 	if(checkForOver(board) || depth>=tabuleiro.difficulty)	return scoreMinMax(board, depth);
 	
-	var scores = new Array();
-	var moves = new Array();
-	var possible_board, move;
+	let scores = new Array();
+	let moves = new Array();
+	let possible_board, move;
 	depth++;
 	for(i=0; i<tabuleiro.number_cavities; i++){
 		move = legalMove(i, board);
@@ -99,7 +106,7 @@ function minimax(board, depth){
 		moves.push(move);	
 	}
 	
-	var max_score, max_score_state, min_score, min_score_state;
+	let max_score, max_score_state, min_score, min_score_state;
 	if(mode==="P2"){
 		max_score = Math.max.apply(Math, scores);
 		max_score_state = scores.indexOf(max_score);
@@ -136,7 +143,7 @@ function changeMode(){
 }
 	
 function scoreMinMax(board, depth){
-	var score = gameOver(board);
+	const score = gameOver(board);
 	console.log("depth: "+depth);
 	if(score==1) return 10-depth;
 	else if(score==2) return depth-10;

@@ -37,6 +37,7 @@
 	border-radius: 5%;
 	margin-bottom: 25%;
 	position: relative;
+
 }
 
 .holeP1{
@@ -70,7 +71,7 @@
  
 .seed{
 	border-radius: 50%;
-	border: 1px groove white;
+	border: 1px solid white;
 	height: 15px;
 	width: 15px;
 	position: absolute;

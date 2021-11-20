@@ -116,9 +116,11 @@ function updateSeeds(state, seeds, mode, board){
 		if(state == P1_index && mode==="P2") state++;
 		else if(state == P2_index && mode==="P1") state = 0;
 		else{
-			
+			if(state>P2_index) state = 0; //in case it updated beyond the value
+
 			board[state++]++; // certificar se não atualiza o state antes de atualizar o valor de board[state]
 			seeds--;
+			
 		}
 	}
 	if(state == P1_index && mode==="P2") state++;
@@ -150,7 +152,7 @@ function generateSeeds(hole, number_seeds){
 			const seed = document.createElement("div");
 			seed.className = "seed";
 			generateStyle(seed, seedList.length);
-			hole.appendChild(seed);
+			hole.appendChild(seed).focus();
 		}
 	}
 }
