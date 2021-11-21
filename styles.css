@@ -1,8 +1,7 @@
 /*general purpose css*/
 
-@charset "utf-8";
 
-body,html {max-width: 100%;height: 100%; overflow-x: inital; }
+body,html {max-width: 100%;height: 100%; }
 
 body{
 	font-family: "Ubuntu";
@@ -18,8 +17,16 @@ img{
 	border: none; 
 }
 
+h2{
+	text-align: center;
+}
+
+table, th, td{
+	border: 1px solid white;
+}
+
 th {
-	 	 background-color: #334420;
+	 background-color: #334420;
 }
 
 #instructions{

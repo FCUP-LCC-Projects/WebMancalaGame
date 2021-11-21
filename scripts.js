@@ -47,7 +47,7 @@ function rulesToggle(){
 	const div = document.getElementById('instructions');
 	if(div.style.display==="block"){
 		div.style.display="none";
-		document.getElementById('rules_text').style.display = "initial";
+		document.getElementById('rules_text').style.display = "flex";
 		document.getElementById('tableContent').style.display = "contents";
 	}
 	else	{

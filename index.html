@@ -2,7 +2,7 @@
 <html lang=pt-pt> 
 <head>
 <title>Mancala</title>
-
+<meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="board.css" type="text/css">
 <link rel="stylesheet" href="styles.css" type="text/css">
@@ -36,7 +36,7 @@
 
 
 <!-- Show Instructions Button-->
-<center><h3 id="rules_text"><a onclick="rulesToggle()">Instructions</a></h3></center><br><hr>
+<h3 id="rules_text"><a onclick="rulesToggle()">Instructions</a></h3><br><hr>
 
 <!-- FORMULÃ�RIO PARA DETALHES DE JOGO-->
 <form id="tableContent" >
@@ -70,24 +70,24 @@
 		<label for="mode_2p">2P</label> (Primeira jogada)<hr> 
 
 	<span class="form_title">CPU level:</span>
-	<input type=radio id="cpu_1" name="cpu_level" value=0 required>
+	<input type=radio name="cpu_level" value=0 required>
 		<label for="mode_1p">Fácil</label>
-	<input type=radio id="cpu_1" name="cpu_level" value=1 >
+	<input type=radio name="cpu_level" value=1 >
 		<label for="mode_1p">Intermédio</label>
-	<input type=radio id="cpu_1" name="cpu_level" value=2 >
+	<input type=radio name="cpu_level" value=2 >
 		<label for="mode_1p">Difícil</label><hr>
 
-	<center>
+	
 	<input class=button type=reset value="Reset">
 		<input class=button type=button id="submit" value="Begin Game" onclick="formButtonHandler()">
-	</center>
+	
 </form>
 
 
 <!-- Instruções de jogo-->
 <div id="instructions" style="display: block" >
 	<a href="javascript:void(0);" id="icon" onclick="rulesToggle()"><i class="fa fa-window-close"></i></a>
-	<center><h2>Regras</h2></center>
+	<h2>Regras</h2>
 	<p> <b>Objetivo:</b> Consegue mais pontos do que o adversário, movendo peças para a área própria ou capturando as do adversário.</p>
 	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distribuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
 	<p>Se a última peça da jogada actual for colocada num buraco vazio no lado do jogador, todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
@@ -98,7 +98,7 @@
 
 
 <!-- Tabela para rankings-->
-<table border=1 id="ranking" style="display: none;">
+<table id="ranking" style="display: none;">
 	<tr>
 		<th colspan=3 class="form_title">Scores</th>
 	</tr>
@@ -111,17 +111,17 @@
 
 
 <!-- BotÃ£o/texto para iniciar jogo-->
-<center><a onclick="beginGame()" id="begin_game_text"><h2>Begin Game</h2></a></center>
+<a onclick="beginGame()" id="begin_game_text"><h2>Begin Game</h2></a>
 
 
 <!-- Informação para cada turno-->
-<center>
-	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp &nbsp &nbsp &nbsp 
-	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp &nbsp &nbsp &nbsp
-	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp &nbsp &nbsp &nbsp 
+
+	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp; 
 	<a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
 	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
-</center>
+
 
 <!-- Tabuleiro-->
 
