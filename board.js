@@ -206,7 +206,31 @@ function showRecords(result){
 	document.getElementById('play_again_text').style.display = "initial";
 	document.getElementById('settings_text').style.display = "initial";
 	clearTable();
+
 }
+/* é pra ser diferente, i guess que podes ignorar lol*/
+
+function showhighscore{
+	const highscore = document.getElementById('highscore');
+	highscore.style.display="table";
+	const row = highscore.insertRow(-1);
+	var rank = row.insertCell(0);
+	var displayname = row.insertCell(1);
+	var score = row.insertCell(2);
+	var max;
+
+	if tabuleiro.board[P1_index] > tabuleiro.board[P2_index]{
+		max=tabuleiro.board[P1_index]
+	}
+	else{
+		max=tabuleiro.board[P2_index]
+	} 
+
+	score.innerHTML = max;
+	displayname.innerHTML = 'coisas'
+}
+
+
 
 /*Reset UI*/
 
