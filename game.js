@@ -1,9 +1,9 @@
 /*Variáveis de jogo*/
 var mode,
-	choice = 7, 
-	P1_index, P2_index, 
-	p1Wins = 0, 
-	p2Wins = 0, 
+	choice = 7,
+	P1_index, P2_index,
+	p1Wins = 0,
+	p2Wins = 0,
 	extraTurn=false;
 
 
@@ -14,7 +14,7 @@ function newGame(){
 	let turnInfo = document.getElementById("turn_info");
 	if(mode==="P2"){
 		turnInfo.innerHTML = tabuleiro.type + " turn";
-		cpuMove();
+		cpuMove(tabuleiro.board);
 	}
 	else{
 		turnInfo.innerHTML = "Player 1's turn";
@@ -24,7 +24,7 @@ function newGame(){
 function checkForOver(board){
 	let resultP1=totalPoints(board,0,P1_index);
 	let resultP2=totalPoints(board,(+P1_index+1), P2_index);
-	
+
 	if(resultP1==0 || resultP2==0) return true;
 	return false;
 }
@@ -33,44 +33,45 @@ function checkForOver(board){
 
 function p1Move(state){
 
-	if(tabuleiro.board[state]!=0 ){
-		updateSeeds(state, tabuleiro.board[state], "P1", tabuleiro.board);
-		updateBoard();
-		document.getElementById('score-player1').innerHTML = tabuleiro.board[P1_index];
-		if(!checkForOver(tabuleiro.board)){
+	board = tabuleiro.board;
+	if(board[state]!=0 ){
+		updateSeeds(state, board[state], "P1", board);
+		updateBoard(board);
+		document.getElementById('score-player1').innerHTML = board[P1_index];
+		if(!checkForOver(board)){
 			if(!extraTurn){
 			//p2 turn
 			mode = "P2";
-			cpuMove();
+			cpuMove(board);
 			}
 			extraTurn = false;
 		}
 		else{
-			tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
-			tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
-			showRecords(gameOver(tabuleiro.board));
+			board[P1_index] += totalPoints(board,0,P1_index);
+			board[P2_index] += totalPoints(board,(+P1_index+1),P2_index);
+			showRecords(gameOver(board));
 		}
 	}
 }
 
-function cpuMove(){
+function cpuMove(board){
 
 	let turnInfo = document.getElementById("turn_info");
 	turnInfo.innerHTML = "Player 2's turn";
-	tempBoard = [...tabuleiro.board];
+	tempBoard = [...board];
 	minimax(tempBoard, 0);
-	
+
 	var state = choice;
-	
 
-	updateSeeds(state, tabuleiro.board[state], "P2", tabuleiro.board);
 
-	updateBoard();
+	board = updateSeeds(state, board[state], "P2", board);
 
-	
-	document.getElementById('score-player2').innerHTML = tabuleiro.board[P2_index];
-	
-	if(!checkForOver(tabuleiro.board)){
+	updateBoard(board);
+
+
+	document.getElementById('score-player2').innerHTML = board[P2_index];
+
+	if(!checkForOver(board)){
 		if(!extraTurn){
 			mode = "P1";
 			turnInfo.innerHTML = "Player 1's turn";
@@ -78,13 +79,13 @@ function cpuMove(){
 		else{
 			mode = "P2";
 			extraTurn = false;
-			cpuMove();
+			cpuMove(board);
 		}
 	}
 	else{
-		tabuleiro.board[P1_index] += totalPoints(tabuleiro.board,0,P1_index);
-		tabuleiro.board[P2_index] += totalPoints(tabuleiro.board,(+P1_index+1),P2_index);
-		showRecords(gameOver(tabuleiro.board));
+		board[P1_index] += totalPoints(board,0,P1_index);
+		board[P2_index] += totalPoints(board,(+P1_index+1),P2_index);
+		showRecords(gameOver(board));
 	}
 }
 
@@ -93,7 +94,7 @@ function cpuMove(){
 
 function minimax(board, depth){
 	if(checkForOver(board) || depth>=tabuleiro.difficulty)	return scoreMinMax(board, depth);
-	
+
 	let scores = new Array();
 	let moves = new Array();
 	let possible_board, move;
@@ -103,9 +104,9 @@ function minimax(board, depth){
 		if(move==-1) continue;
 		possible_board = getNewState(move, board);
 		scores.push(minimax(possible_board, depth));
-		moves.push(move);	
+		moves.push(move);
 	}
-	
+
 	let max_score, max_score_state, min_score, min_score_state;
 	if(mode==="P2"){
 		max_score = Math.max.apply(Math, scores);
@@ -131,17 +132,17 @@ function getNewState(move, tempBoard){
 function legalMove(move, board){
 	if(mode=="P2") move = 1*i+1*P1_index+1;
 	else					move = i;
-	
+
 	if(board[move]==0 || move==P1_index || move==P2_index) return -1;
 	return move;
-	
+
 }
 
 function changeMode(){
 	if(mode==="P1") mode="P2";
 	else			mode="P1";
 }
-	
+
 function scoreMinMax(board, depth){
 	const score = gameOver(board);
 	console.log("depth: "+depth);
@@ -160,8 +161,7 @@ function totalPoints(board, start, end){
 }
 
 function gameOver(board){
-	if(board[P1_index] < board[P2_index]) return 1; //P2 wins 
+	if(board[P1_index] < board[P2_index]) return 1; //P2 wins
 	else if(board[P1_index] > board[P2_index]) return 2; //P1 wins
 	else return 3; //Tie
 }
-

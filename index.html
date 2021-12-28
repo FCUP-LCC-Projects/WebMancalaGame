@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=pt-pt> 
+<html lang=pt-pt>
 <head>
 <title>Mancala</title>
 <meta charset="UTF-8">
@@ -15,31 +15,35 @@
 
 
 <!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
-<form id="login" style="display: inline-block;">
+<form login-form id="login" method="POST" style="display: inline-block;">
 	<span class="form_title">LOGIN</span>
-		Utilizador: <input type=text size=8> 
-		Password: <input type=password size=8> 
+		Utilizador: <input name="username" type=text size=8>
+		Password: <input name="password" type=password size=8>
+		<input type="submit">
+		<input type="reset">
 	<a onclick="loginSignToggle()"><h3>Don't have an account? Sign up!</h3></a>
 </form>
 
-<form id="signup" style="display: none;">
+<span class="form_title" display-username></span>
+
+<form signup-form id="signup" method=post style="display: none;">
 	<span class="form_title">SIGN UP</span>
-		Utilizador: <input type=text size=8> 
-		Password: <input type=password size=8> 
+		Utilizador: <input name="username" type=text size=8>
+		Password: <input name="password" type=password size=8>
 	<a onclick="loginSignToggle()"><h3 class="signin_text">Already signed up? Login!</h3></a>
 </form>
 
 
 <!-- About page-->
 
-<p id=about>Welcome to Mancala! You can sign in to register your scores to your account or play logged out (NA). By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
+<p id=about>Welcome to Mancala! You can sign in to register your scores to your account or play logged out. By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
 
 
 <!-- Show Instructions Button-->
 <h3 id="rules_text"><a onclick="rulesToggle()">Instructions</a></h3><br><hr>
 
 <!-- FORMULÃ�RIO PARA DETALHES DE JOGO-->
-<form id="tableContent" >
+<form config-form id="tableContent" >
 
 	<span class="form_title">Number of hollows:</span>
 	<input type=radio id="hollow_value_4" name="hollows" value=4>
@@ -64,23 +68,23 @@
 		<label for="mode_player">Player 2</label> (TBD - 2º entrega)<hr>
 
 	<span class="form_title">Modo:</span>
-	<input type=radio id="mode_1p" name="game_mode" value="P1" required>
+	<input type=radio id="mode_1p" name="game_mode" value="P1" >
 		<label for="mode_1p">1P</label>
 	<input type=radio id="mode_2p" name="game_mode" value="P2">
-		<label for="mode_2p">2P</label> (Primeira jogada)<hr> 
+		<label for="mode_2p">2P</label> (Primeira jogada)<hr>
 
 	<span class="form_title">CPU level:</span>
-	<input type=radio name="cpu_level" value=0 required>
+	<input type=radio name="cpu_level" value=0 >
 		<label for="mode_1p">Fácil</label>
 	<input type=radio name="cpu_level" value=1 >
 		<label for="mode_1p">Intermédio</label>
 	<input type=radio name="cpu_level" value=2 >
 		<label for="mode_1p">Difícil</label><hr>
 
-	
+
 	<input class=button type=reset value="Reset">
-		<input class=button type=button id="submit" value="Begin Game" onclick="formButtonHandler()">
-	
+		<input class=button type=submit value="Begin Game">
+
 </form>
 
 
@@ -100,26 +104,15 @@
 <!-- Tabela para rankings-->
 <table id="ranking" style="display: none;">
 	<tr>
-		<th colspan=3 class="form_title">Scores</th>
+		<th colspan=4 class="form_title">Scores</th>
 	</tr>
 	<tr>
-		<th>Player 1</th>
-		<th>Player 2</th>
-		<th>Results</th>
+		<th>#</th>
+		<th>Username</th>
+		<th>Wins</th>
+		<th>Games</th>
 	</tr>
 </table><br>
-<table id="highscore" style="display: none;">
-	<tr>
-		<th colspan=2 class="form_title">Scores</th>
-	</tr>
-	<tr>
-		<th>rank</th>
-		<th>Display name</th>
-		<th></th>
-		
-	</tr>
-</table><br>
-
 
 
 <!-- BotÃ£o/texto para iniciar jogo-->
@@ -128,9 +121,9 @@
 
 <!-- Informação para cada turno-->
 
-	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp; 
-	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp; 
-	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp;
+	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp;
+	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp;
 	<a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
 	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
 
@@ -146,7 +139,7 @@
 
 	<div id="holes_space"></div>
 
-	
+
 	<div class="pits">
 		<div class="pit_hole"></div>
 	</div>
@@ -154,10 +147,13 @@
 
 </div>
 
-
+<script src="ranking.js"></script>
+<script src="apigame.js"></script>
+<script src="api.js"></script>
 <script src="board.js"></script>
 <script src="scripts.js"></script>
 <script src="game.js"></script>
+<script src="comm.js"></script>
 
 </body>
 

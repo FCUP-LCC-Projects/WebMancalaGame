@@ -1,22 +1,17 @@
 const COLORS = ["#f8f8f8", "#6d6d6d", "#eeeed2", "#565352", "#454443"];
 /*Create Board Data Structure*/
 
-function initTabuleiro(stats){
-	
-	tabuleiro.number_seeds = stats.number_seeds;
-	tabuleiro.number_cavities = stats.number_cavities;
-	tabuleiro.total_cavities = stats.total_cavities;
-	tabuleiro.difficulty = difficulties[stats.difficulty];
-	mode = stats.mode;
+function initTabuleiro(){
+
 	tabuleiro.board = new Array(tabuleiro.total_cavities);
-	
+
 	for(let i=0; i<tabuleiro.total_cavities-1; i++){
 		tabuleiro.board[i] = tabuleiro.number_seeds;
 	}
-	
+
 	P1_index = tabuleiro.number_cavities;
 	P2_index = tabuleiro.total_cavities-1;
-	
+
 	tabuleiro.board[P1_index] = 0;
 	tabuleiro.board[P2_index] = 0;
 }
@@ -33,7 +28,7 @@ function initBoard(){
 function initHoleColumns(holes_space, id){
 	const column =  document.createElement("div");
 	column.className = "holeColumn";
-	
+
 	holes_space.appendChild(column);
 	initHole(column, id);
 }
@@ -45,7 +40,7 @@ function initHole(column, id){
 	const hole_p2 = document.createElement("div");
 	hole_p2.className = "holeP2";
 	hole_p2.id = (P2_index-1-id);
-	
+
 	const p1_text = document.createElement("h5");
 	p1_text.className = "tooltiptext";
 	p1_text.id = id;
@@ -54,16 +49,15 @@ function initHole(column, id){
 	p2_text.className = "tooltiptext";
 	p2_text.id = (P2_index-1-id);
 	p2_text.innerHTML = tabuleiro.number_seeds;
-	
+
 	column.appendChild(p2_text);
-		
-	column.appendChild(hole_p2);	
+
+	column.appendChild(hole_p2);
 	column.appendChild(hole_p1);
-	
+
 	column.appendChild(p1_text);
 
-	hole_p1.onclick = updateOnClick;
-	
+	addOnClick(hole_p1);
 
 	initSeeds(hole_p2);
 	initSeeds(hole_p1);
@@ -89,29 +83,38 @@ function generateStyle(seed, numSeeds){
 
 /*Event Listeners*/
 
-function updateTooltip(idHole, preventMix){
+function updateTooltip(idHole, board){
 	const columns = document.getElementsByClassName("holeColumn");
 	if(idHole > P1_index){
 		let id = idHole--;
 		let column = id%P1_index;
-		columns[column].firstChild.innerHTML = tabuleiro.board[P2_index-1-column]; 
+		columns[column].firstChild.innerHTML = board[P2_index-1-column];
 	}//first tooltip
 	else{
 		let column = idHole%P1_index;
-		columns[column].lastChild.innerHTML = tabuleiro.board[idHole];
+		columns[column].lastChild.innerHTML = board[idHole];
 	}		//second tooltip
 
 }
 
-function updateOnClick(){
-		p1Move(this.id);
+function addOnClick(hole){
+	if(apiGame){
+		hole.addEventListener("click", (event) => {
+			apiGame.notifyPlay(hole.id);
+		})
+	}
+	else {
+		hole.addEventListener("click", (event) => {
+			p1Move(hole.id);
+		})
+	}
 }
 
 /* Update values*/
 
 function updateSeeds(state, seeds, mode, board){
 	board[state++]  = 0;
-	
+
 	while(seeds > 1){
 		if(state == P1_index && mode==="P2") state++;
 		else if(state == P2_index && mode==="P1") state = 0;
@@ -120,20 +123,20 @@ function updateSeeds(state, seeds, mode, board){
 
 			board[state++]++; // certificar se não atualiza o state antes de atualizar o valor de board[state]
 			seeds--;
-			
+
 		}
 	}
 	if(state == P1_index && mode==="P2") state++;
 	else if(state == P2_index && mode==="P1") state = 0;
-	
-	if((mode==="P1" && state==P1_index) || (mode==="P2" && state==P2_index)) {board[state++]++; seeds--; extraTurn=true;} //+1 turn 
+
+	if((mode==="P1" && state==P1_index) || (mode==="P2" && state==P2_index)) {board[state++]++; seeds--; extraTurn=true;} //+1 turn
 	else if(board[state]==0){
 		board[state] += 1 + board[P2_index - 1 - state]; //estado atual + ultima semente + semente do lado oposto
 		board[P2_index - 1 - state] = 0;
 		seeds--;
 	}
 	else{
-		board[state]++; 
+		board[state]++;
 		seeds--;
 	}
 	return board;
@@ -157,22 +160,22 @@ function generateSeeds(hole, number_seeds){
 	}
 }
 
- function updateBoard(){
+ function updateBoard(board){
 	const pits = document.getElementsByClassName("pit_hole"); //[0] - p1, [1] - 2
-	generateSeeds(pits[1] , tabuleiro.board[P1_index]); //update P1 pit
-	generateSeeds(pits[0], tabuleiro.board[P2_index]);
+	generateSeeds(pits[1] , board[P1_index]); //update P1 pit
+	generateSeeds(pits[0], board[P2_index]);
 
 	const spacesP1 = document.getElementsByClassName("holeP1");
 	const spacesP2 = document.getElementsByClassName("holeP2");
 	for(i=0, k=(P1_index-1); i<P2_index; i++){
 		if(i == P1_index) continue; //skip P1 pit
 		else if(i < P1_index){
-		generateSeeds(spacesP1[i], tabuleiro.board[i]);
-		updateTooltip(i);
+		generateSeeds(spacesP1[i], board[i]);
+		updateTooltip(i, board);
 		}
 		else{
-		generateSeeds(spacesP2[k--], tabuleiro.board[i]);
-		updateTooltip(i);
+		generateSeeds(spacesP2[k--], board[i]);
+		updateTooltip(i, board);
 		}
 	}
 }
@@ -190,47 +193,25 @@ function showRecords(result){
 		turnInfo.innerHTML = "You won! Congratulations!";
 		p1Wins++;
 	}
-	else	turnInfo.innerHTML = "It's a tie.";
-	
-	const rankings = document.getElementById('ranking');
-	rankings.style.display="table";
-	const row = rankings.insertRow(-1);
-	var p1Score = row.insertCell(0);
-	var p2Score = row.insertCell(1);
-	var wins = row.insertCell(2);
-	
-	p1Score.innerHTML = tabuleiro.board[P1_index];
-	p2Score.innerHTML = tabuleiro.board[P2_index];
-	wins.innerHTML = p1Wins + " - " + p2Wins;
-	
+	else{
+		turnInfo.innerHTML = "It's a tie.";
+		p2Wins++;
+	}
+
+	if(!loggedIn){
+		let user = "Anon";
+		ranking.addNewRanking({user, p1Wins});
+	}
+	else{
+		let user = localStorage.getItem("username");
+		ranking.addNewRanking({user, p1Wins});
+	}
+	ranking.renderRanking(true);
+
 	document.getElementById('play_again_text').style.display = "initial";
 	document.getElementById('settings_text').style.display = "initial";
 	clearTable();
-
 }
-/* é pra ser diferente, i guess que podes ignorar lol*/
-
-function showhighscore{
-	const highscore = document.getElementById('highscore');
-	highscore.style.display="table";
-	const row = highscore.insertRow(-1);
-	var rank = row.insertCell(0);
-	var displayname = row.insertCell(1);
-	var score = row.insertCell(2);
-	var max;
-
-	if tabuleiro.board[P1_index] > tabuleiro.board[P2_index]{
-		max=tabuleiro.board[P1_index]
-	}
-	else{
-		max=tabuleiro.board[P2_index]
-	} 
-
-	score.innerHTML = max;
-	displayname.innerHTML = 'coisas'
-}
-
-
 
 /*Reset UI*/
 
@@ -249,23 +230,21 @@ function showhighscore{
 	 document.getElementById('give_up').style.display = "block";
 	 document.getElementById('icon').onclick = instructionToggle;
  }
- 
+
 function clearTable(){
 	document.getElementById('board').style.display='none';
 	document.getElementById('give_up_text').style.display = 'none';
 	document.getElementById('instruction_text').style.display = 'none';
-	
+
 	const pits = document.getElementsByClassName('pit_hole');
 	for(i=0; i<2; i++)
 		while(pits[i].firstChild)
 			pits[i].removeChild(pits[i].lastChild);
-	
+
 	const holeSpace = document.getElementById('holes_space');
 	while(holeSpace.firstChild)
 		holeSpace.removeChild(holeSpace.lastChild);
-	
+
 	document.getElementById('score-player1').innerHTML = 0;
 	document.getElementById('score-player2').innerHTML = 0;
 }
-
-

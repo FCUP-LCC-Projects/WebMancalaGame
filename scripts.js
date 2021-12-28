@@ -7,6 +7,10 @@ var tabuleiro = {
 	type: "CPU",
 }
 
+let api = new API();
+let ranking = new Ranking();
+let apiGame;
+
 const difficulties = [10, 20, 10000];
 
 /*Display togglers*/
@@ -57,31 +61,17 @@ function rulesToggle(){
 	}
 }
 
-/*Form handler*/
- 
-  function formButtonHandler() {
-	tabuleiro.number_cavities = document.querySelector('input[name="hollows"]:checked').value;
-	tabuleiro.number_seeds = document.querySelector('input[name="seeds"]:checked').value;
-	tabuleiro.difficulty = document.querySelector('input[name="cpu_level"]:checked').value;
-	tabuleiro.mode = document.querySelector('input[name="game_mode"]:checked').value;
-	tabuleiro.total_cavities = (tabuleiro.number_cavities*2 + 2);
-	tabuleiro.type = "CPU"; //alterar para o query na segunda entrega
-	beginGame();
- }
-
  /*Begin Mancala game event*/
- 
+
  function beginGame(){
 	 clearSpace();
-	 initTabuleiro(tabuleiro);
+	 initTabuleiro();
 	 initBoard();
 	 newGame();
  }
- 
+
  /*Player gives up*/
- 
+
  function giveUp(){
 	 showRecords(1);
  }
-
- 
