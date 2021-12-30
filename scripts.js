@@ -10,6 +10,7 @@ var tabuleiro = {
 let api = new API();
 let ranking = new Ranking();
 let apiGame;
+let error = new Errors();
 
 const difficulties = [10, 20, 10000];
 
@@ -68,10 +69,4 @@ function rulesToggle(){
 	 initTabuleiro();
 	 initBoard();
 	 newGame();
- }
-
- /*Player gives up*/
-
- function giveUp(){
-	 showRecords(1);
  }

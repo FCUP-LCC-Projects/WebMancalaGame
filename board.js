@@ -200,11 +200,11 @@ function showRecords(result){
 
 	if(!loggedIn){
 		let user = "Anon";
-		ranking.addNewRanking({user, p1Wins});
+		ranking.addNewRanking(user);
 	}
 	else{
-		let user = localStorage.getItem("username");
-		ranking.addNewRanking({user, p1Wins});
+		let user = document.querySelector('[display-username]').textContent;
+		ranking.addNewRanking(user);
 	}
 	ranking.renderRanking(true);
 
@@ -222,7 +222,8 @@ function showRecords(result){
 	 document.getElementById('signup').style.display  = "none";
 	 document.getElementById('tableContent').style.display  = "none";
 	 document.getElementById('instructions').style.display  = "none";
-	 document.getElementById('begin_game_text').style.display = "none";
+	 document.getElementById('cpu_vs_txt').style.display = "none";
+	 document.getElementById('player_vs_txt').style.display = "none";
 	 document.getElementById('play_again_text').style.display = "none";
 	 document.getElementById('instruction_text').style.display = "initial";
 	 document.getElementById('give_up_text').style.display = "initial";

@@ -1,5 +1,40 @@
 var loggedIn = false;
 
+document.getElementById("cpu_vs_txt").addEventListener("click", (event) =>{
+    beginGame();
+});
+
+document.getElementById("player_vs_txt").addEventListener("click", (event) =>{
+  let username = document.querySelector('[display-username]').textContent;
+  let cavities = 6;
+  let seeds = 4;
+  beginApiGame({username, seeds, cavities});
+});
+
+document.getElementById("give_up_text").addEventListener("click", (event) => {
+  if(apiGame){
+    apiGame.giveUp();
+  }
+  else{
+    showRecords(1);
+  }
+});
+
+document.getElementById("play_again_text").addEventListener("click", (event) => {
+  document.getElementById("ranking").style.display="none";
+  if(loggedIn){
+    ranking.clearTable();
+    let username = document.querySelector('[display-username]').textContent;
+    let cavities = 6;
+    let seeds = 4;
+    beginApiGame({username, seeds, cavities});
+  }
+  else {
+    ranking.clearTable();
+    beginGame();
+  }
+})
+
 document.querySelector("[login-form]").addEventListener("submit", (event) =>{
     event.preventDefault();
 
@@ -16,16 +51,12 @@ document.querySelector("[login-form]").addEventListener("submit", (event) =>{
       document.getElementById("signup").style.display="none";
 
       loggedIn = true;
-      const cavities = 6;
-      const seeds = 4;
-      document.getElementById("begin_game_text").addEventListener("click", (event) => {
-        beginApiGame({username, seeds, cavities});
-      });
-
+      document.getElementById("cpu_vs_txt").textContent = "Versus CPU";
+      document.getElementById("player_vs_txt").style.display = "inline-flex";
     }
 
     const error_callback = (response) => {
-      console.log(response);
+      error.callBack(response);
     }
 
     api.register({"nick":username, "password": password}, success_callback, error_callback);

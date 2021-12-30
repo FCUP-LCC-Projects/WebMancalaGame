@@ -11,7 +11,7 @@
 <body>
 
 <!-- LOGOTIPO -->
-<img src="Mancala.png" alt="Mancala" />
+<a href="index.html"><img src="Mancala.png" alt="Mancala" /></a>
 
 
 <!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
@@ -102,7 +102,7 @@
 
 
 <!-- Tabela para rankings-->
-<table id="ranking" style="display: none;">
+<br><table id="ranking" style="display: none;">
 	<tr>
 		<th colspan=4 class="form_title">Scores</th>
 	</tr>
@@ -116,17 +116,21 @@
 
 
 <!-- BotÃ£o/texto para iniciar jogo-->
-<a onclick="beginGame()" id="begin_game_text"><h2>Begin Game</h2></a>
+<a id="cpu_vs_txt" class="begin_game_text"><h2>Begin Game</h2></a>
+<a id="player_vs_txt" class="begin_game_text" style="display: none;"><h2>Versus P2</h2></a>
 
 
 <!-- Informação para cada turno-->
 
-	<p id=give_up><a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp;
-	<a onclick="giveUp()" class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp;
-	<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp;
-	<a onclick="beginGame()" class="form_title" id="play_again_text" style="display: none;">Play again</a></p>
-	<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
+<p id=give_up>
+<a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a class="form_title" id="play_again_text" style="display: none;">Play again</a>
+</p>
 
+
+<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
 
 <!-- Tabuleiro-->
 
@@ -147,6 +151,7 @@
 
 </div>
 
+<script src="errors.js"></script>
 <script src="ranking.js"></script>
 <script src="apigame.js"></script>
 <script src="api.js"></script>

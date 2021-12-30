@@ -4,7 +4,7 @@ function beginApiGame(config){
   clearSpace();
 
   api.join({
-    "group": '222222222',
+    "group": '3LGTEL',
     "nick": config.username,
     "password": localStorage.getItem(`password_${config.username}`),
     "size": config.cavities,
@@ -16,11 +16,10 @@ function beginApiGame(config){
   api.startEvent();
 
   apiGame = new APIGame(config);
-  document.getElementById("give_up").onclick = apiGame.giveUp;
 
   apiGame.startGame();
   }, (response) => {
-  console.log(response);
+  console.log(response.error);
   });
 }
 
@@ -31,6 +30,7 @@ class APIGame{
   constructor(config){
     console.log("api game config: "+config.username+" "+config.cavities+" "+config.seeds);
     this.config = config;
+    this.gameHash = config.gameHash;
     P1_index = config.cavities;
     P2_index = config.cavities*2+1;
     this.board = new Array(P2_index+1);
@@ -52,6 +52,9 @@ class APIGame{
         "password": localStorage.getItem(`password_${this.config.username}`),
         "game": this.config.gameHash,
         "move": move
+    }, () => {},
+    (response) => {
+      error.callBack(response.error)
     });
   } //move é só o id da cavidade a semer [0, end]
 
@@ -111,24 +114,32 @@ class APIGame{
   }
 
   endGame(){
+    ranking.addNewRanking(this.config.username)
     ranking.renderRanking(false);
     api.closeEvent();
     clearTable();
-  }
 
-  giveUp(){
-    this.unpair();
-    this.endGame();
+    document.getElementById('play_again_text').style.display = "initial";
+    document.getElementById('settings_text').style.display = "initial";
   }
 
   unpair() {
     api.leave(
       {
-        game: this.config.gameHash,
-        nick: this.config.username,
-        pass: localStorage.getItem(`password_${this.config.username}`)
+        "game": this.config.gameHash,
+        "nick": this.config.username,
+        "password": localStorage.getItem(`password_${this.config.username}`)
       },
-      () => {}
+      () => {},
+      () => {error.callBack("Couldn't leave")}
     );
   }
+
+  giveUp(){
+    document.getElementById('turn_info').innerHTML = "You gave up!";
+
+    this.unpair();
+    this.endGame();
+  }
+
 }

@@ -60,7 +60,7 @@ class API{
       this.post("notify", data, successCallback, errorCallback);
   }
 
-  ranking(data, successCallback, errorCallback = null){
+  ranking(successCallback, errorCallback = null){
       this.post("ranking", {}, successCallback, errorCallback);
   }
 

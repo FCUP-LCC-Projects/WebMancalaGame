@@ -5,18 +5,21 @@ class Ranking{
       const storedRanking = localStorage.getItem("ranking");
       if(storedRanking){
         this.ranking = JSON.parse(storedRanking);
+        console.log(this.ranking);
       }
   }
 
   addNewRanking(user){
-    const index = this.ranking.findIndex( (i) => i.username === user.user);
+    const index = this.ranking.findIndex( (i) => i.username === user);
 
     if(index >=0){
-      this.ranking[index] = {username: user.user, points: user.p1Wins, games: this.ranking[index].games+1};
+      this.ranking[index] = {username: user, points: this.ranking[index].points+1, games: this.ranking[index].games+1};
     }
     else{
       this.ranking.push({username: user.user, points: 1, games: 1});
     }
+
+    this._sortRanking();
   }
 
   renderRanking(localRanking){
@@ -24,12 +27,20 @@ class Ranking{
       api.ranking(
         (response) => {
           response.ranking.forEach((entry) => {
-            this.ranking.push({username: entry.username, points: entry.victories, games: entry.games});
+            this.ranking.push({username: entry.nick, points: entry.victories, games: entry.games});
           }
         )
       });
     }
+    console.log(this.ranking);
+    this._sortRanking();
     this._renderRanking();
+  }
+
+  _sortRanking(){
+    this.ranking.sort((a,b) => {
+      return b.points - a.points;
+    })
   }
 
   _renderRanking(){
@@ -40,11 +51,17 @@ class Ranking{
     this.ranking.forEach((line, index) => {
         if(index>=10) return;
         let row = rankings.insertRow(-1);
-        row.insertCell(0).innerHTML = index;
+        row.insertCell(0).innerHTML = index+1;
         row.insertCell(1).innerHTML = line.username; //userScore
         row.insertCell(2).innerHTML = line.points; //Wins
         row.insertCell(3).innerHTML = line.games; //Games
     });
   }
 
+  clearTable(){
+    const table = document.getElementById("ranking");
+    for(let i=table.rows.length-1; i>1; i--){
+      table.deleteRow(i);
+    }
+  }
 }

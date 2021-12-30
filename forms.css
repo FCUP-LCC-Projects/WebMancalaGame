@@ -3,7 +3,7 @@
 
 #tableContent{
     padding: 10px;
-    
+
 	display: inline-block;
 	width: 40%;
 	background-color: #00000033;
@@ -14,8 +14,6 @@
 	width: 25%;
 	height: auto;
 	box-shadow: 0 0 2px #fff;
-	
-	
 }
 
 #rules_text {
@@ -60,8 +58,21 @@ a:hover{
 	text-shadow: 0 0 10px #76b03e;
 }
 
-#begin_game_text{
-	text-align: center;
+.error{
+background-color: cornflowerblue;
+box-shadow: 0 0 15px #000;
+margin-left: 25%;
+text-align: center;
+overflow-wrap: break-word;
+width: 400px;
+height: 100px;
+line-height: 5;
+font-size: large;
+font-weight: bold;
+}
+
+.begin_game_text{
+
     width: 37.5%;
 	background-color: #7fa650;
     border-radius: 1rem ;
@@ -74,7 +85,7 @@ a:hover{
     position: relative;
     right: 25%;
 	left: 25%;
-    
+
 }
 
 #begin_game_text a:hover{
@@ -84,7 +95,7 @@ a:hover{
 
 #about {
 	background-color: #00000033;
-	
+
 	border-radius: 5px;
 	width:95.3%;
 
@@ -92,12 +103,10 @@ a:hover{
 
 #give_up {
 	background-color: #00000033;
-	
+
 	border-radius: 5px;
 	display: none;
 	width:95.3%;
 	margin-right:10%;
 	text-align: center;
 }
-	
-
