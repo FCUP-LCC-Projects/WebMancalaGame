@@ -59,16 +59,17 @@ a:hover{
 }
 
 .error{
-background-color: cornflowerblue;
+  position: absolute;
+background-color: #769656;
 box-shadow: 0 0 15px #000;
-margin-left: 25%;
 text-align: center;
 overflow-wrap: break-word;
 width: 400px;
-height: 100px;
-line-height: 5;
+height: 80px;
+line-height: 4;
 font-size: large;
 font-weight: bold;
+border: 2px solid #fff;
 }
 
 .begin_game_text{

@@ -10,16 +10,16 @@ function beginApiGame(config){
     "size": config.cavities,
     "initial": config.seeds
   }, (response) => {
-  config.gameHash = response.game;
+    config.gameHash = response.game;
 
-  api.defineURL(config);
-  api.startEvent();
+    api.defineURL(config);
+    api.startEvent();
 
-  apiGame = new APIGame(config);
+    apiGame = new APIGame(config);
 
-  apiGame.startGame();
+    apiGame.startGame();
   }, (response) => {
-  console.log(response.error);
+    error.createLoginMessage(response.error)
   });
 }
 
@@ -54,7 +54,8 @@ class APIGame{
         "move": move
     }, () => {},
     (response) => {
-      error.callBack(response.error)
+      console.log(response);
+      error.createMessage(response.error)
     });
   } //move é só o id da cavidade a semer [0, end]
 
@@ -131,7 +132,7 @@ class APIGame{
         "password": localStorage.getItem(`password_${this.config.username}`)
       },
       () => {},
-      () => {error.callBack("Couldn't leave")}
+      () => {error.createMessage(response.error);}
     );
   }
 
