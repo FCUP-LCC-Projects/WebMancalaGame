@@ -41,7 +41,10 @@ class API{
         else
           response.json().then(successCallback);
       }
-    }).catch(() => typeof errorCallback === 'function' ? errorCallback() : null);
+      else{
+        response.json().then(errorCallback);
+      }
+    }).catch(() => typeof errorCallback === 'function' ? console.log("error") : null);
   }
 
   register(data, successCallback, errorCallback = null){
