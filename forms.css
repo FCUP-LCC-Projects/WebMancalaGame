@@ -74,7 +74,7 @@ border: 2px solid #fff;
 
 .begin_game_text{
 
-    width: 37.5%;
+    width: 37%;
 	background-color: #7fa650;
     border-radius: 1rem ;
     box-shadow: 0 0.5rem 0 0 #537133, 0 0.7rem 0.95rem 0.05rem rgba(0,0,0,0.2);
@@ -84,8 +84,8 @@ border: 2px solid #fff;
     max-width: 100%;
     padding: var(--buttonPaddings,.5rem 2rem);
     position: relative;
-    right: 25%;
-	left: 25%;
+    right: 50%;
+	left: 0%;
 
 }
 
