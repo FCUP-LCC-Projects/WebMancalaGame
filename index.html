@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang=pt-pt>
 <head>
-<title>Mancala</title>
 <meta charset="UTF-8">
+<title>Mancala</title>
+<meta name="description" content="Jogo Mancala">
+<meta name="author" content="Mateus Almeida">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="board.css" type="text/css">
+<link rel="stylesheet" href="src/css/board.css" type="text/css">
+<link rel="stylesheet" href="src/css/forms.css" type="text/css">
 <link rel="stylesheet" href="styles.css" type="text/css">
-<link rel="stylesheet" href="forms.css" type="text/css">
 </head>
 <body>
 
 <!-- LOGOTIPO -->
-<a href="index.html"><img src="Mancala.png" alt="Mancala" /></a>
+<a href="index.html"><img src="src/img/Mancala.png" alt="Mancala" /></a>
 
 
 <!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
@@ -137,7 +139,7 @@
 <div id="alert-window" class="error" style="display: none;"></div>
 
 <!-- Tabuleiro-->
-
+<canvas id=tela width= 150 height=150 style="display: none"></canvas>
 <div id="board" style="margin-top: 10px;">
 
 	<h3 id="score-player2"></h3>
@@ -155,14 +157,15 @@
 
 </div>
 
-<script src="errors.js"></script>
-<script src="ranking.js"></script>
-<script src="apigame.js"></script>
-<script src="api.js"></script>
-<script src="board.js"></script>
-<script src="scripts.js"></script>
-<script src="game.js"></script>
-<script src="comm.js"></script>
+<script src="src/js/errors.js"></script>
+<script src="src/js/ranking.js"></script>
+<script src="src/js/spinner.js"></script>
+<script src="src/js/apigame.js"></script>
+<script src="src/js/api.js"></script>
+<script src="src/js/board.js"></script>
+<script src="src/js/scripts.js"></script>
+<script src="src/js/game.js"></script>
+<script src="src/js/comm.js"></script>
 
 </body>
 

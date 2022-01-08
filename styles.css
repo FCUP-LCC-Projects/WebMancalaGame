@@ -12,9 +12,9 @@ body{
 }
 
 img{
-	height: auto; 
+	height: auto;
 	width: 35%;
-	border: none; 
+	border: none;
 }
 
 h2{
@@ -32,7 +32,7 @@ th {
 #instructions{
 	overflow-y: scroll;
 	overflow-x: hidden;
-	
+
 	border-radius: 5px;
 	width: 45%;
 	float: right;
@@ -55,8 +55,11 @@ th {
 	border: 2px groove white;
 }
 
+#tela{
+  background-color:#1d1e22;
+  border-radius: 5px;
 
-
+}
 
 hr{
 	width:95%;
