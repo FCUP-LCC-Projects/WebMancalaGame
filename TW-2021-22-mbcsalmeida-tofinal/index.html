@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang=pt-pt>
+<head>
+<meta charset="UTF-8">
+<title>Mancala</title>
+<meta name="description" content="Jogo Mancala">
+<meta name="author" content="Mateus Almeida">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="src/css/board.css" type="text/css">
+<link rel="stylesheet" href="src/css/forms.css" type="text/css">
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<!-- LOGOTIPO -->
+<a href="index.html"><img src="src/img/Mancala.png" alt="Mancala" /></a>
+
+
+<!-- FORMULÃ�RIOS PARA SIGN IN E LOGIN-->
+<form login-form id="login" method="POST" style="display: inline-block;">
+	<span class="form_title">LOGIN</span>
+		Utilizador: <input name="username" type=text size=8>
+		Password: <input name="password" type=password size=8>
+		<input type="submit">
+		<input type="reset">
+	<a onclick="loginSignToggle()"><h3>Don't have an account? Sign up!</h3></a>
+</form>
+
+
+
+<form signup-form id="signup" method=post style="display: none;">
+	<span class="form_title">SIGN UP</span>
+		Utilizador: <input name="username" type=text size=8>
+		Password: <input name="password" type=password size=8>
+		<input type="submit">
+		<input type="reset">
+	<a onclick="loginSignToggle()"><h3 class="signin_text">Already signed up? Login!</h3></a>
+</form>
+
+<span id="username_display" class="form_title_2" display-username > </span>
+<!-- About page-->
+
+<br><p id=about>Welcome to Mancala! You can sign in to register your scores to your account or play logged out. By pressing Begin Game, you will begin with the default settings (4 seeds, 6 cavities, Intermedium CPU difficulty, first move from P1). Enjoy!</p>
+
+
+<!-- Show Instructions Button-->
+<h3 id="rules_text"><a onclick="rulesToggle()">Instructions</a></h3><br><hr>
+
+<!-- FORMULÃ�RIO PARA DETALHES DE JOGO-->
+<form config-form id="tableContent" >
+
+	<span class="form_title">Number of hollows:</span>
+	<input type=radio id="hollow_value_4" name="hollows" value=4>
+		<label for="hollow_value_4">4</label>
+	<input type=radio id="hollow_value_6" name="hollows" value=6 required>
+		<label for="hollow_value_6">6</label>
+	<input type=radio id="hollow_value_8" name="hollows" value=8>
+		<label for="hollow_value_8">8</label> (Recomendado: 6)<hr>
+
+	<span class="form_title">Number of seeds:</span>
+	<input type=radio id="seed_value_4" name="seeds" value=4 required>
+		<label for="seed_value_4">4</label>
+	<input type=radio id="seed_value_8" name="seeds" value=8 >
+		<label for="seed_value_8">8</label>
+	<input type=radio id="seed_value_12" name="seeds" value=12>
+		<label for="seed_value_12">12</label> (Recomendado: 4)<hr>
+
+	<span class="form_title">Versus:</span>
+	<input type=radio id="mode_pc" name="versus" value="CPU" required>
+		<label for="mode_pc">CPU</label>
+	<input type=radio id="mode_player" name="versus" value="P2" >
+		<label for="mode_player">Player 2</label> (TBD - 2º entrega)<hr>
+
+	<span class="form_title">Modo:</span>
+	<input type=radio id="mode_1p" name="game_mode" value="P1" >
+		<label for="mode_1p">1P</label>
+	<input type=radio id="mode_2p" name="game_mode" value="P2">
+		<label for="mode_2p">2P</label> (Primeira jogada)<hr>
+
+	<span class="form_title">CPU level:</span>
+	<input type=radio name="cpu_level" value=0 >
+		<label for="mode_1p">Fácil</label>
+	<input type=radio name="cpu_level" value=1 >
+		<label for="mode_1p">Intermédio</label>
+	<input type=radio name="cpu_level" value=2 >
+		<label for="mode_1p">Difícil</label><hr>
+
+
+	<input class=button type=reset value="Reset">
+		<input class=button type=submit value="Begin Game">
+
+</form>
+
+
+<!-- Instruções de jogo-->
+<div id="instructions" style="display: block" >
+	<a href="javascript:void(0);" id="icon" onclick="rulesToggle()"><i class="fa fa-window-close"></i></a>
+	<h2>Regras</h2>
+	<p> <b>Objetivo:</b> Consegue mais pontos do que o adversário, movendo peças para a área própria ou capturando as do adversário.</p>
+	<p> O buraco do lado direito é o teu depósito. Ao selecionar um dos buracos do teu lado, todas as suas peças serão distribuidas pelos buracos seguintes (no sentido contrário ao dos pontos do relógio). Se uma das peças passar pelo depósito, deposita uma peça. Se passar pelo depósito do adversário, ignora e continua.</p>
+	<p>Se a última peça da jogada actual for colocada num buraco vazio no lado do jogador, todas as peças da mesma coluna na linha adversária são capturadas e colocadas na área do jogador que fez a jogada. </p>
+	<p> Se a última peça da jogada atual for colocada no depósito então joga-se outra vez.</p>
+	<p> O jogo acaba quando um dos jogadores já não tem mais peças disponíveis. </p>
+	<p> Ganha o jogador que tenha capturado mais peças.</p>
+</div><br>
+
+
+<!-- Tabela para rankings-->
+<br><table id="ranking" style="display: none;">
+	<tr>
+		<th colspan=4 class="form_title">Scores</th>
+	</tr>
+	<tr>
+		<th>#</th>
+		<th>Username</th>
+		<th>Wins</th>
+		<th>Games</th>
+	</tr>
+</table><br>
+
+
+<!-- BotÃ£o/texto para iniciar jogo-->
+<a id="cpu_vs_txt" class="begin_game_text"  "><h2>Begin Game</h2></a>
+<a id="player_vs_txt" class="begin_game_text" style="display: none;"><h2>Versus P2</h2></a>
+
+
+<!-- Informação para cada turno-->
+
+<p id=give_up>
+<a onclick="settingsToggle()" class="form_title" id="settings_text" style="display: none;">Change Settings</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a class="form_title" id="give_up_text" style="display: none;">Give up</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a onclick="instructionToggle()" class="form_title" id="instruction_text" style="display: none;">See Instructions</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a class="form_title" id="play_again_text" style="display: none;">Play again</a>
+</p>
+
+
+<p id="turn_info"  style="visibility:hidden;">TURN INFO</p>
+
+<div id="alert-window" class="error" style="display: none;"></div>
+
+<!-- Tabuleiro-->
+<canvas id=tela width= 150 height=150 style="display: none"></canvas>
+<div id="board" style="margin-top: 10px;">
+
+	<h3 id="score-player2"></h3>
+	<div class="pits">
+		<div class="pit_hole"></div>
+	</div>
+
+	<div id="holes_space"></div>
+
+
+	<div class="pits">
+		<div class="pit_hole"></div>
+	</div>
+	<h3 id="score-player1"></h3>
+
+</div>
+
+<script src="src/js/errors.js"></script>
+<script src="src/js/ranking.js"></script>
+<script src="src/js/spinner.js"></script>
+<script src="src/js/apigame.js"></script>
+<script src="src/js/api.js"></script>
+<script src="src/js/board.js"></script>
+<script src="src/js/scripts.js"></script>
+<script src="src/js/game.js"></script>
+<script src="src/js/comm.js"></script>
+
+</body>
+
+</html>
