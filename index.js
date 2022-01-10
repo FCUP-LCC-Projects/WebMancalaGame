@@ -1,13 +1,15 @@
 
 const config = require('./server/config.js');
 const post = require('./server/post.js')
+const get = require('./server/get.js')
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
 
 const apiUrl = '/server';
 
-const games = {
+let games = {
+  awaitingGameHash : [],
   waiting: [],
   playing: []
 }
@@ -20,7 +22,7 @@ const server = http.createServer(function (request, response) {
     parsedUrl.pathname = parsedUrl.pathname.replace(apiUrl, "");
       switch(request.method){
         case 'POST':
-          console.log("POST REQUEST");
+          //console.log("POST REQUEST");
           doPostRequest(parsedUrl, request, response, games);
           break;
         case 'GET':

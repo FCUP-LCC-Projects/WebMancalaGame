@@ -36,7 +36,7 @@ module.exports.createHash = function(size, initial){
   const date = new Date();
   const hash = crypto
     .createHash('md5')
-    .update(date.getTime().toString())
+    .update(size+initial+date.getTime().toString())
     .digest('hex');
 
   return hash;

@@ -45,6 +45,15 @@
 	text-shadow: 0 0 3px #000;
 }
 
+.form_title_2{
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Helvetica";
+	text-shadow: 0 0 3px #000;
+
+
+}
+
 #turn_info{
 	text-transform: uppercase;
 	border: 6px double #E0E0E0;
@@ -74,20 +83,43 @@ border: 2px solid #fff;
 
 .begin_game_text{
 
+
+		display: block;
+	min-height: var(--buttonHeight,5rem);
+	text-align: center;
     width: 37%;
 	background-color: #7fa650;
+	align-items: center;
+    border: 0;
     border-radius: 1rem ;
     box-shadow: 0 0.5rem 0 0 #537133, 0 0.7rem 0.95rem 0.05rem rgba(0,0,0,0.2);
-	@@ -84,8 +84,8 @@ border: 2px solid #fff;
+    display: inline-flex;
+    font-size: var(--fontSize,1.5rem);
+    font-weight: 600;
+    justify-content: center;
+    margin-bottom: var(--borderHeight);
     max-width: 100%;
+    overflow: hidden;
     padding: var(--buttonPaddings,.5rem 2rem);
     position: relative;
-    right: 50%;
-	left: 0%;
+    text-align: center;
+    right: 0px;
 
 }
 
+#player_vs_txt{
+	margin-top: 5px;
+	height: 5%;
 
+
+
+}
+#username_display{
+font-size:300%;
+margin-left:50%;
+
+
+}
 
 #about {
 	background-color: #00000033;

@@ -7,8 +7,8 @@ class Spinner{
   constructor(){
     this.tela = document.querySelector('canvas');
     this.tela.style.position = 'absolute';
-    this.tela.style.top = "100px";
-    this.tela.style.left = "850px";
+    this.tela.style.top = "400px";
+    this.tela.style.left = "50%";
     this.gc = this.tela.getContext('2d');
     this.repeatCall = -1;
     this.intervalId = setInterval(this.repeat.bind(this) , 1000 );
@@ -124,14 +124,7 @@ class Spinner{
   }
 
   repeat(){
-    console.log("repeat call");
     this.repeatCall++;
-    /*setTimeout(function(){
-      this.rotation(i);
-      i++;
-      if (i>0)
-      this.repeat();
-    },1000);*/
     this.rotation(this.repeatCall);
   }
 }

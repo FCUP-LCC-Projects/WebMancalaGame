@@ -15,7 +15,7 @@ class Ranking{
       this.ranking[index] = {username: user, points: this.ranking[index].points+1, games: this.ranking[index].games+1};
     }
     else{
-      this.ranking.push({username: user.user, points: 1, games: 1});
+      this.ranking.push({username: user, points: 1, games: 1});
     }
 
     this._sortRanking();
@@ -27,13 +27,15 @@ class Ranking{
         (response) => {
           response.ranking.forEach((entry) => {
             this.ranking.push({username: entry.nick, points: entry.victories, games: entry.games});
-          }
-        )
+          });
+          this._sortRanking();
+          this._renderRanking();
       });
     }
-    console.log(this.ranking);
-    this._sortRanking();
-    this._renderRanking();
+    else{
+      this._sortRanking();
+      this._renderRanking();
+    }
   }
 
   _sortRanking(){
@@ -48,6 +50,7 @@ class Ranking{
     rankings.style.display="table";
 
     this.ranking.forEach((line, index) => {
+        console.log(line);
         if(index>=10) return;
         let row = rankings.insertRow(-1);
         row.insertCell(0).innerHTML = index+1;

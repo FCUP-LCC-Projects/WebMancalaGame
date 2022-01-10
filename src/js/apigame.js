@@ -129,6 +129,7 @@ class APIGame{
     clearInterval(this.spinner.intervalId);
     clearTable();
 
+    document.getElementById('tela').style.display = "none";
     document.getElementById('play_again_text').style.display = "initial";
     document.getElementById('settings_text').style.display = "initial";
   }
